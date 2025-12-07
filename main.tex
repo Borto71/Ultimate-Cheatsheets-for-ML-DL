@@ -1,0 +1,3158 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[strings]{underscore}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}    
+\usepackage{hyperref}   
+\usepackage{listings}    
+\usepackage{amsmath, amssymb} 
+\usepackage{geometry}    
+\usepackage{tikz}       
+\geometry{margin=2.5cm}
+\usepackage{tikz}
+\usetikzlibrary{matrix,fit}
+\usetikzlibrary{matrix} 
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta}
+\usetikzlibrary{calc}
+\usepackage{caption} 
+\usepackage{float}
+\usepackage{tabularx}
+
+\title{Ultimate Cheatsheets for ML/DL}
+\author{Mattia Bortolaso}
+\date{October 2025}
+\begin{document}
+
+\maketitle
+\tableofcontents
+\clearpage
+
+\maketitle
+
+\chapter{Introduction}
+
+This document serves as a comprehensive cheat sheet for studying Machine Learning and Deep Learning. 
+It provides a structured summary of key algorithms, models, technologies, and optimization techniques, 
+covering both foundational and state-of-the-art approaches. 
+
+The goal is to offer a concise yet rigorous reference for students, researchers, and practitioners seeking 
+to review or deepen their understanding of modern artificial intelligence methodologies, 
+including theoretical principles, implementation strategies, and code-level insights.
+
+\section{Artificial Intelligence (AI)}
+In this section we talk about Artificial Intelligence, in this chapter we talk in general about AI as we dive more deep later.
+
+\subsection{AI Introduction}
+
+\textbf{Artificial Intelligence (AI)} refers to the ability of machines or computers to mimic the way humans think and make decisions.  
+AI enables machines to think like humans or to replicate certain functions of the human brain.  
+In simple words, \textbf{AI is when we enable computers to think.}
+
+Artificial Intelligence allows computers to understand, analyze data, and make decisions without human help or interaction.  
+We use AI systems every day. A few common examples are \textit{Siri}, \textit{Alexa}, and \textit{ChatGPT}.  
+
+Other categories where AI is used include:
+\begin{itemize}
+    \item Virtual Assistants
+    \item Social Media Algorithms
+    \item Online Shopping Recommendations
+    \item Predictive Text and Autocorrect
+    \item Healthcare Diagnostics
+    \item Language Translation Services
+    \item Fraud Detection in Banking
+\end{itemize}
+
+AI enables computers to become intelligent with numbers and rules, performing calculations at incredible speed and with perfect accuracy.  
+On the other hand, humans possess not only reasoning but also emotions, creativity, and the ability to adapt to complex and unpredictable situations.
+\subsection{Types of AI}
+Artificial Intelligence is divided based on two main categorization — based on capabilities and based on functionally of AI.
+
+The following image illustrates these types of AI:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{img/fig1.png}
+    \caption{Types of AI}
+    \label{fig:placeholder}
+\end{figure}
+
+Now let's dive in the details of Narrow AI, General AI and Super AI.
+
+\begin{itemize}
+    \item \textbf{Narrow AI:} Narrow AI, also known as Weak AI, refers to \textbf{artificial intelligence systems that are designed and trained for a specific task} or narrow set of tasks. Narrow AI is focused on performing a single task extremely well, but it cannot perform beyond its field or limitations. 
+    \item \textbf{General AI:} General AI, also known as Strong AI or artificial general intelligence (AGI), \textbf{can understand and learn any intellectual task that a human being can.}
+    \item \textbf{Super AI:} Super AI represents a degree of intelligence in systems where \textbf{machines have the potential to exceed human intelligence}, outperforming humans in tasks and exhibiting cognitive abilities.
+\end{itemize}
+
+We can also divide types of AI based on functionality: \begin{enumerate}
+    \item \textbf{Reactive Machines:} Reactive machines are AI \textbf{systems that have no memory}. These systems operate solely based on the present data, taking into account only the current situation. They can perform a narrowed range of pre-defined tasks.
+    \item \textbf{ Limited Memory:} As the name indicates, Limited Memory AI can take informed and improved decisions by looking at its past experiences stored in a temporary memory.
+
+This AI doesn’t remember everything forever, but it uses its short-term memory to learn from the past and make better decisions for the future.
+
+A \textbf{good example of Limited Memory AI is Self-driving cars}. The AI system in self-driving car utilizes recent past data to make real-time decisions. For instance, they employ sensors to recognize pedestrians, steep roads, traffic signals, and more, enhancing their ability to make safer driving choices. This proactive approach contributes to preventing potential accidents.
+    \item \textbf{Theory of Mind:} This is similar to Super AI — We should pray that we don’t reach the state of AI, where\textbf{ machines have their own consciousness and become self-aware}.
+
+Self-aware AI systems will be super intelligent, and will have their own consciousness, sentiments, and self-awareness. They will be smarter than human mind. 
+    \item \textbf{Self-Aware AI:} This is similar to Super AI — We should pray that we don’t reach the state of AI, where machines have their own consciousness and become self-aware.
+
+Self-aware AI systems will be super intelligent, and will have their own consciousness, sentiments, and self-awareness. They will be smarter than human mind.
+
+As shown in movie “I, Robot,”, an AI system named VIKI becomes self-aware and starts making decisions to “protect” humanity in a controversial way.
+
+Similar to Theory of Mind, Self-aware AI also does not exist in reality. Many experts, for example Elon Musk and Stephen Hawkings have consistently warned us about the evolution of AI.
+\end{enumerate}
+
+\section{Machine Learning (ML):}
+In this chapter we are talking about Machine Learning, we first start explaining machine learning from a kids prospective and later we add more details.
+
+\subsection{ML Introduction:}
+Imagine we want to \textbf{enable the robot to identify several animals}.
+
+To do so, we will show him pictures of various dogs, cats, bunnies and other animals and \textbf{label each picture with the name of the animal}. We train the robot to identify animals based on size, color, body shape, sound etc.
+
+\begin{figure} [!h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{img/fig2.png}
+    \caption{Machine Learning scheme}
+    \label{fig:placeholder}
+\end{figure}
+
+Once the training is completed, the robot will be able to identify these animals we trained him for.
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{img/fig3.png}
+    \caption{After training scheme}
+    \label{fig:placeholder}
+\end{figure}
+
+
+All dogs do not look alike. However, once robot has seen many pictures of dogs, \textbf{it can identify any dog even if it does not exactly look like a specific picture}. We need to show lots of pictures of dog to the robot. More pictures it sees, more efficient it will be.
+
+In simple words Machine Learning is teaching a robot or a machine by giving a lot of examples to work with and learn.\\\
+
+\subsection{Types of Machine Learning:}
+Machine Learning can be categorized into three main types: \begin{enumerate}
+    \item Supervised Learning. 
+    \item Unsupervised Learning.
+    \item Reinforcement Learning.
+\end{enumerate}
+
+Each type serves different purposes and involves different approaches to learning from data. Let’s have a close look into all these types.
+
+\subsection{Supervised Learning}
+
+\textbf{When we trained our robot by showing pictures of animals}, we labelled each picture with the name of the animal. So, \textbf{we acted as a teacher to him}. We first told him how does a dog or a cat look like and then only he was able to identify them.
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{img/fig4.png}
+    \caption{Supervised Learning summarized}
+    \label{fig:placeholder}
+\end{figure}
+Supervised Learning is widely used in this field: \textit{Email Spamming Filtering, Image Classification, Facial Recognition, Financial Fraud Detection, Speech Recognition}.
+
+\subsection{Unsupervised Learning}
+Let’s understand this from a kid’s school example. When kids go to their class first day, they meet lots of classmates. At first all classmates are same to them. But with time, they themselves categorized them in different groups:
+\begin{itemize}
+    \item They find some classmates very good and want to be friend with them.
+    \item They find some rude or irritating and want to avoid them.
+    \item They find some very good in sports and want to be in the same team as they are.
+    \item and so on ...
+\end{itemize}
+
+\textbf{When kids categorized their classmates, nobody told them how to do that.} They did that without anyone’s help. — This is how unsupervised learning works.
+
+Let’s take a proper machine learning example. Imagine we showed lots of pictures of dogs, cats, bunnies etc. \textbf{without any label} to our robot and told him — \textit{“I’m not going to tell you which one is which. Go explore and figure it out”}.
+
+The robot starts to look at these animals, noticing things such as their fur, size, and how they move. It doesn’t know their names yet, but it’s trying to find patterns and differences on its own.
+
+After exploring, the robot might notice that:
+\begin{itemize}
+    \item Some animals have long ears (bunnies)
+    \item Some animals have soft fur and tail (cats)
+    \item Some animals have wagging tails (dogs)
+\end{itemize}
+In the end, the robot \textbf{might not know the names of the animals}, but it can say that \textbf{“These animals are similar in some ways, and those are different in other ways.”} — This is Unsupervised Learning.
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{img/fig5.png}
+    \caption{Unsupervised Learning summarized}
+    \label{fig:placeholder}
+\end{figure}
+
+Unsupervised Learning is widely used in this field: \textit{Clustering Customer Segmentation, Anomaly Detection in Cybersecurity, Recommendation System}.
+
+
+\subsection{Reinforcement Learning}
+Imagine teaching a dog a new trick — you \textbf{reward it with a treat when it does the trick correctly} and give no treat when it doesn’t. Over time, the dog \textbf{learns to perform the trick to get more treats}.
+
+Similarly, Reinforcement Learning is:
+\begin{itemize}
+    \item Training a computer to make a decision.
+    \item By rewarding good choices and punishing bad ones.
+    \item Just as you might train a dog with treats for learning tricks.
+\end{itemize}
+In reinforcement learning, there’s an agent (for example a robot or computer program) that interacts with an environment. Let’s take an example of teaching a computer program to play a game, for example chess.
+\begin{itemize}
+    \item In this case, computer program is agent and chess game is the environment.
+    \item The computer program can make different moves in the game, such as moving a chess piece.
+    \item After each move, it receives feedback (reward or penalty) based on the outcome of the game.
+    \item If it loses the game, it receives a negative reward, or a 'penalty'.
+    \item Through trial and error, the program learns which moves lead to the best rewards, helping it figure out the best sequence of moves that leads to winning the game.
+\end{itemize}
+
+Reinforcement learning is powerful because it \textbf{allows machines to learn from their experiences} and make decisions in complex, uncertain environments — similar to how we learn from trial and error in the real world.
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{img/fig6.png}
+    \caption{Reinforcement Learning summarized}
+    \label{fig:placeholder}
+\end{figure}
+
+\chapter{Algorithms}
+\section{Regression Methods}
+Regression is one of the fundamental tasks in supervised learning. Its goal is to predict a 
+continuous-valued output based on one or more input variables. Formally, given a dataset 
+of input–output pairs $\{(x_i, y_i)\}_{i=1}^N$ where $x_i \in \mathbb{R}^d$ represents the 
+input features and $y_i \in \mathbb{R}$ represents a continuous target variable, 
+a regression model seeks to learn a function 
+$f: \mathbb{R}^d \rightarrow \mathbb{R}$ that approximates the underlying relationship 
+between inputs and outputs.
+
+\begin{figure} [!h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/reg_vis.png}
+    \caption{Regression examples}
+    \label{fig:placeholder}
+\end{figure}
+
+
+\vspace{0.5em}
+In a typical regression problem, the input can represent any structured or unstructured 
+data — such as physical measurements, numerical attributes, or encoded representations 
+of images, audio signals, or text. The model processes these inputs and outputs a single 
+real number or, in the case of multivariate regression, a vector of continuous values.
+
+\vspace{0.5em}
+The simplest and most widely known regression technique is \textit{linear regression}, 
+where the model assumes a linear relationship between the input features and the target:
+\[
+\hat{y} = w^\top x + b,
+\]
+where $w$ is a weight vector and $b$ is a bias term. More complex regression models, 
+including polynomial regression, decision trees, and neural networks, can capture 
+nonlinear dependencies between inputs and outputs.
+
+\vspace{0.5em}
+The performance of a regression model is commonly evaluated using metrics such as 
+Mean Squared Error (MSE), Root Mean Squared Error (RMSE), or Mean Absolute Error (MAE), 
+which quantify how close the predicted values $\hat{y}_i$ are to the true targets $y_i$.
+
+\vspace{0.5em}
+In summary, regression models map numerical representations of real-world phenomena 
+to continuous outcomes, forming the basis for many predictive modeling tasks, 
+from estimating housing prices and forecasting stock trends to predicting physical 
+properties in scientific domains.
+
+\section{Classification Methods}
+
+Classification is another central task in supervised learning, where the objective is to assign 
+each input to one of several discrete categories. Formally, given a dataset of labeled examples 
+$\{(x_i, y_i)\}_{i=1}^N$ where $x_i \in \mathbb{R}^d$ represents the feature vector and 
+$y_i \in \{1, \dots, K\}$ denotes the class label, a classification model learns a function 
+$f: \mathbb{R}^d \rightarrow \{1, \dots, K\}$ or, equivalently, a probability distribution 
+over classes $P(y|x)$.
+
+\vspace{0.5em}
+The model ingests an input vector---which may represent text, an image, an audio signal, or any 
+numerical encoding---and outputs either a class label (hard classification) or a vector of 
+probabilities indicating the model’s confidence for each class (soft classification). 
+The most common approach for probabilistic outputs is to apply a softmax transformation 
+to the model’s final layer, ensuring that all predicted probabilities sum to one.
+
+\vspace{0.5em}
+Several families of models can perform classification:
+\begin{itemize}
+    \item \textbf{Linear Models:} Logistic Regression and Linear Discriminant Analysis (LDA) 
+    are among the simplest and most interpretable classifiers. They model class boundaries 
+    using linear decision surfaces and can provide calibrated probability estimates.
+    \item \textbf{Support Vector Machines (SVM):} These models seek an optimal separating 
+    hyperplane that maximizes the margin between classes. Kernelized SVMs can capture 
+    nonlinear decision boundaries.
+    \item \textbf{Tree-Based Models:} Decision Trees, Random Forests, and Gradient Boosting 
+    Machines (such as XGBoost or LightGBM) partition the feature space hierarchically. 
+    They often yield strong predictive performance and can handle heterogeneous data types.
+    \item \textbf{Probabilistic Models:} Naïve Bayes and Gaussian Mixture Models (GMMs) 
+    represent classes using explicit probability distributions, allowing inference via Bayes’ rule.
+    \item \textbf{Neural Network Classifiers:} Deep architectures such as Multilayer Perceptrons (MLPs), 
+    Convolutional Neural Networks (CNNs), and Transformers are capable of learning highly 
+    nonlinear decision functions directly from raw data.
+\end{itemize}
+
+\vspace{0.5em}
+The quality of a classification model is typically assessed through metrics such as 
+accuracy, precision, recall, F1-score, and the area under the Receiver Operating Characteristic 
+curve (ROC–AUC). These measures quantify how effectively the model distinguishes among 
+different classes and are essential for evaluating performance, particularly in the presence 
+of class imbalance.
+
+\vspace{0.5em}
+In summary, classification methods aim to map structured or unstructured input data 
+to discrete output categories. From simple linear models to large-scale deep networks, 
+the central challenge remains the same: to generalize from observed examples to unseen data, 
+capturing the underlying structure that defines each class.
+
+
+\section{Clustering}
+
+Clustering is a fundamental technique in \textit{unsupervised learning}. 
+Its purpose is to discover inherent groupings within a dataset by identifying patterns or similarities among unlabeled examples. 
+Unlike classification, where each data point is associated with a predefined label, clustering attempts to infer structure directly from the data itself. 
+In this sense, it can be viewed as a way to explore the natural organization of data without prior supervision.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/clustering_example.png}
+    \caption{Unlabeled data vs Clustered data}
+    \label{fig:placeholder}
+\end{figure}
+
+\vspace{0.5em}
+Formally, given a set of examples $\{x_i\}_{i=1}^N$ with $x_i \in \mathbb{R}^d$, 
+a clustering algorithm aims to partition the dataset into $K$ groups, or \textit{clusters}, 
+such that data points within the same cluster are more similar to each other than to those in different clusters. 
+Similarity is typically measured through distance metrics such as Euclidean, Manhattan, or cosine distance, depending on the data representation and problem context.
+
+\vspace{0.5em}
+To illustrate the concept, consider a clinical study designed to evaluate a new treatment protocol. 
+During the experiment, patients report both the frequency and severity of their symptoms per week. 
+Since these observations are continuous and not labeled, researchers can apply clustering analysis to group patients with similar responses to the treatment. 
+For example, one cluster may contain patients who show rapid improvement, another may represent those with moderate progress, 
+and a third may include patients with minimal or no response.
+
+\vspace{0.5em}
+Figure~\ref{fig:img/clustering_example} shows a simulated example in which patient data are grouped into three distinct clusters based on their symptom profiles. 
+Such analyses allow researchers to uncover hidden patterns in clinical outcomes and to tailor future interventions according to the characteristics of each patient subgroup.
+
+\vspace{0.5em}
+\subsubsection*{Clustering Methods}
+
+A variety of clustering algorithms have been developed, each suited to different data structures and assumptions:
+
+\begin{itemize}
+    \item \textbf{K-Means Clustering:} A centroid-based algorithm that partitions data into $K$ clusters by minimizing the within-cluster sum of squared distances. It is simple and efficient, but assumes spherical cluster shapes and requires the number of clusters to be specified in advance.
+    \item \textbf{Hierarchical Clustering:} Builds a nested hierarchy of clusters either by iteratively merging smaller clusters (agglomerative) or by splitting larger ones (divisive). The results are often visualized through a dendrogram, which provides insights into the data’s structure at multiple levels of granularity.
+    \item \textbf{Density-Based Clustering (DBSCAN, HDBSCAN):} Groups data points based on regions of high density, allowing the discovery of arbitrarily shaped clusters and the identification of noise or outliers. It does not require specifying the number of clusters a priori.
+    \item \textbf{Gaussian Mixture Models (GMM):} A probabilistic approach in which each cluster is represented as a Gaussian distribution. Unlike K-Means, GMM provides \textit{soft assignments}, meaning that each data point can belong to multiple clusters with different probabilities.
+    \item \textbf{Spectral Clustering:} Utilizes the eigenvalues of a similarity matrix to perform clustering in a lower-dimensional space, making it suitable for non-convex or complex data manifolds.
+\end{itemize}
+
+\vspace{0.5em}
+The choice of clustering method depends on the data distribution, dimensionality, and the desired interpretability of results. 
+In practice, clustering is often used as an exploratory tool for data analysis, feature engineering, or as a preprocessing step in larger machine learning pipelines.
+
+\vspace{0.5em}
+In summary, clustering serves as a powerful approach to reveal latent structures within unlabeled datasets. 
+It is widely applied in fields such as bioinformatics, market segmentation, image analysis, and recommender systems, 
+where uncovering hidden patterns can lead to more meaningful understanding and informed decision-making.
+
+\section{Dimensionality Reduction}
+
+Dimensionality reduction is a key technique in machine learning and data analysis that seeks to represent high-dimensional data in a lower-dimensional space while preserving as much relevant information as possible. 
+It serves multiple purposes: improving computational efficiency, mitigating the curse of dimensionality, reducing noise, and enhancing interpretability or visualization of complex datasets.
+
+\vspace{0.5em}
+Formally, given a dataset $\{x_i\}_{i=1}^N$ where each example $x_i \in \mathbb{R}^D$ is described by $D$ features, 
+the goal is to find a transformation function $f: \mathbb{R}^D \rightarrow \mathbb{R}^d$ with $d \ll D$ such that 
+the lower-dimensional representation $z_i = f(x_i)$ retains the most informative characteristics of the original data.
+The challenge lies in compressing the representation without losing the essential structure or relationships between data points.
+
+\begin{figure} [!h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/dim_red.png}
+    \caption{Dimensionality Reduction}
+    \label{fig:placeholder}
+\end{figure}
+
+\vspace{0.5em}
+Dimensionality reduction techniques can be broadly divided into two categories: 
+\textit{feature selection} and \textit{feature extraction}. 
+Feature selection involves choosing a subset of the most relevant original variables, 
+while feature extraction constructs new features as combinations or projections of the existing ones.
+
+\vspace{0.5em}
+Several methods have been developed to perform dimensionality reduction, each based on different assumptions and optimization objectives:
+
+\begin{itemize}
+    \item \textbf{Principal Component Analysis (PCA):} A linear technique that projects data onto the directions (principal components) of maximum variance. 
+    PCA identifies orthogonal axes that best explain the variability in the dataset and is often used for visualization and preprocessing.
+    
+    \item \textbf{Linear Discriminant Analysis (LDA):} Although originally designed for classification, LDA can also be used for dimensionality reduction by projecting data onto directions that maximize class separability.
+    
+    \item \textbf{Independent Component Analysis (ICA):} Aims to decompose multivariate data into statistically independent components, often used in signal processing and blind source separation tasks.
+    
+    \item \textbf{t-Distributed Stochastic Neighbor Embedding (t-SNE):} A nonlinear technique that preserves local similarities among data points, making it particularly useful for visualizing high-dimensional data in two or three dimensions.
+    
+    \item \textbf{Uniform Manifold Approximation and Projection (UMAP):} A more recent nonlinear method that approximates the topological structure of data manifolds, often providing better scalability and global structure preservation than t-SNE.
+    
+    \item \textbf{Autoencoders:} Neural network–based models that learn a compressed latent representation of data by training to reconstruct the input from a lower-dimensional code. 
+    They can capture complex nonlinear relationships and are widely used in deep learning pipelines.
+\end{itemize}
+
+\vspace{0.5em}
+To illustrate, consider a dataset describing patients with hundreds of medical features, such as laboratory values and genetic markers. 
+Applying PCA or UMAP can reveal low-dimensional embeddings that group patients with similar clinical profiles, enabling researchers to visualize disease subtypes or predict treatment outcomes more effectively.
+
+\vspace{0.5em}
+In summary, dimensionality reduction transforms complex, high-dimensional datasets into compact and informative representations. 
+It facilitates efficient learning, improved generalization, and deeper insight into the intrinsic structure of data—serving as both a practical preprocessing step and a powerful tool for exploratory data analysis.
+
+\section{Kernel Methods}
+
+Kernel methods provide a powerful framework for performing nonlinear learning using algorithms that are inherently linear in their formulation. 
+The central idea is to map input data into a high-dimensional feature space where linear decision boundaries become sufficient for solving tasks that are nonlinear in the original space. 
+This transformation is achieved implicitly through a \textit{kernel function}, avoiding the computational cost of explicitly computing high-dimensional feature vectors.
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/kernel.jpg}
+    \caption{Kernel Method}
+    \label{fig:placeholder}
+\end{figure}
+
+\vspace{1em}
+\subsection{Motivation and Intuition}
+
+Many datasets exhibit patterns that are not linearly separable.  
+For example, consider points arranged in concentric circles: no straight line can separate them in the original input space.  
+However, if we project the data into a higher-dimensional space—such as adding a radial distance feature—the classes may become linearly separable.
+
+Kernel methods exploit this idea using the \textit{kernel trick}: instead of explicitly computing
+\[
+\phi(x) \in \mathcal{H},
+\]
+a high-dimensional (possibly infinite-dimensional) feature representation, they compute only inner products in that space:
+\[
+K(x, x') = \langle \phi(x), \phi(x') \rangle_{\mathcal{H}}.
+\]
+This allows algorithms like Support Vector Machines (SVMs) to operate efficiently while benefiting from the representational power of high-dimensional spaces.
+
+\vspace{1em}
+\subsection{The Kernel Trick}
+
+Many linear algorithms depend exclusively on inner products between data points.  
+By replacing these inner products with a kernel function, the algorithm implicitly operates in feature space without ever computing $\phi(x)$ directly.
+
+Formally, replace:
+\[
+x^\top x' \quad \longrightarrow \quad K(x, x').
+\]
+
+This technique enables:
+\begin{itemize}
+  \item nonlinear classification (e.g., kernel SVMs),
+  \item nonlinear regression (kernel ridge regression),
+  \item dimensionality reduction (kernel PCA),
+  \item clustering (spectral clustering).
+\end{itemize}
+
+The key advantage is that the dimensionality of $\phi(x)$ does not affect the computational complexity as long as $K(x, x')$ is efficient to compute.
+
+\vspace{1em}
+\subsection{Common Kernel Functions}
+
+Several kernels are widely used due to their theoretical properties and empirical success:
+
+\paragraph{Linear Kernel}
+\[
+K(x, x') = x^\top x'.
+\]
+Equivalent to no feature mapping. Useful as a baseline or when data are already separable with linear models.
+
+\paragraph{Polynomial Kernel}
+\[
+K(x, x') = (x^\top x' + c)^p.
+\]
+Allows the model to represent polynomial interactions of degree $p$.  
+Good for tasks where feature interactions matter.
+
+\paragraph{Radial Basis Function (RBF) Kernel}
+\[
+K(x, x') = \exp\!\left( -\frac{\|x - x'\|^2}{2\sigma^2} \right).
+\]
+One of the most powerful and widely used kernels.  
+Creates smooth decision boundaries and can represent extremely complex patterns.
+
+\paragraph{Sigmoid (Neural) Kernel}
+\[
+K(x, x') = \tanh(\alpha x^\top x' + c).
+\]
+Inspired by neural activation functions; historically linked to early neural network theory.
+
+\paragraph{Custom or Domain-Specific Kernels}
+String kernels, graph kernels, and convolution kernels allow the method to operate effectively on structured data, such as sequences or graphs.
+
+\vspace{1em}
+\subsection{Kernel SVM as a Primary Example}
+
+In Support Vector Machines, the classifier is expressed as:
+\[
+f(x) = \sum_{i=1}^n \alpha_i \, y_i \, K(x, x_i) + b,
+\]
+where only support vectors have nonzero coefficients $\alpha_i$.  
+Using a kernel replaces linear dot products, allowing the SVM to construct highly flexible nonlinear decision boundaries.
+
+\paragraph{Intuition.}  
+Instead of fitting a straight line, kernel SVMs create curved boundaries tailored to the data geometry, while still maximizing the margin in feature space.
+
+\vspace{1em}
+\subsection{Advantages and Limitations}
+
+\paragraph{Advantages:}
+\begin{itemize}
+    \item Effective at capturing nonlinear patterns without explicit feature engineering.
+    \item Strong theoretical background (reproducing kernel Hilbert spaces).
+    \item Work well with smaller to medium-sized datasets.
+    \item Highly flexible due to choice of kernel functions.
+\end{itemize}
+
+\paragraph{Limitations:}
+\begin{itemize}
+    \item Computational cost scales poorly with dataset size ($O(n^2)$ memory, $O(n^3)$ training).
+    \item Hard to tune (choice of kernel + hyperparameters).
+    \item Less competitive on extremely high-dimensional or massive datasets compared to deep learning.
+\end{itemize}
+
+\vspace{1em}
+\subsection{Kernel Methods in Modern Machine Learning}
+
+While deep learning dominates large-scale tasks, kernel methods remain highly competitive and widely used in:
+\begin{itemize}
+    \item bioinformatics (sequence kernels),
+    \item small/tabular datasets,
+    \item anomaly detection (one-class SVM),
+    \item dimensionality reduction (kernel PCA),
+    \item graph and structured data domains.
+\end{itemize}
+
+Hybrid models combining neural networks and kernels (e.g., deep kernel learning) are an active research area, leveraging the advantages of both worlds.
+
+\vspace{1em}
+\subsection{Summary}
+
+Kernel methods enable powerful nonlinear modeling through elegant mathematical principles and efficient implicit feature mappings.  
+They form the backbone of many classical machine learning algorithms and remain an essential conceptual bridge between linear models and modern deep architectures.  
+Understanding kernels provides insight into similarity measures, geometry of data, and high-dimensional representations—concepts that continue to influence contemporary machine learning.
+
+
+
+\chapter{Models}
+
+\section{Neural Network Architectures}
+
+Neural network architectures define the structural organization and information flow within models that learn to approximate complex functions. 
+They specify how neurons are arranged into layers, how these layers are connected, and how data propagate through the network during training and inference. 
+Each architecture introduces specific inductive biases that make it particularly suited for certain types of data or tasks.
+
+\vspace{0.5em}
+At their core, neural networks consist of a series of transformations applied to an input vector $x \in \mathbb{R}^d$. 
+Each layer performs a linear mapping followed by a nonlinear activation function:
+\[
+h^{(l)} = \sigma(W^{(l)} h^{(l-1)} + b^{(l)}),
+\]
+where $W^{(l)}$ and $b^{(l)}$ are the layer’s trainable parameters, $\sigma(\cdot)$ is a nonlinear activation function such as ReLU or GeLU, and $h^{(l)}$ represents the layer’s output (often referred to as the hidden representation). 
+The final layer produces an output $\hat{y}$ that corresponds to a prediction or learned embedding, depending on the task.
+
+\vspace{0.5em}
+The design of a neural network architecture determines:
+\begin{itemize}
+    \item \textbf{Depth:} the number of layers stacked sequentially, which influences the level of abstraction the model can learn.
+    \item \textbf{Width:} the number of neurons per layer, affecting the model’s capacity and expressiveness.
+    \item \textbf{Connectivity:} how neurons or layers are connected—whether fully, locally, recurrently, or via attention mechanisms.
+    \item \textbf{Parameter sharing and constraints:} architectural choices such as convolutions or recurrent weights that impose structure and reduce the number of learnable parameters.
+\end{itemize}
+
+\vspace{0.5em}
+The flexibility of neural networks lies in their ability to adapt architectural principles to specific problem domains. 
+For instance, some architectures emphasize spatial feature extraction, others model temporal dependencies, and others learn global contextual relationships. 
+This diversity allows neural networks to serve as a unifying framework across computer vision, natural language processing, speech recognition, and many other fields.
+
+\vspace{0.5em}
+In practice, the choice of architecture depends on the nature of the input data and the desired output:
+\begin{itemize}
+    \item For structured, tabular, or vector data, fully connected or feedforward networks are often employed.
+    \item For grid-like data such as images, convolutional architectures are preferred.
+    \item For sequential data such as time series or text, recurrent or attention-based architectures are more effective.
+\end{itemize}
+
+\vspace{0.5em}
+Although these categories differ in structure and function, they share common building blocks: 
+linear transformations, nonlinear activations, normalization mechanisms, and regularization techniques. 
+The interplay of these components defines the representational power and generalization ability of the network.
+
+\vspace{0.5em}
+In summary, neural network architectures represent the blueprint of how information is processed and transformed within a model. 
+By designing the right architecture, one can embed domain knowledge directly into the network’s structure—guiding it to learn meaningful and efficient representations of data. 
+The following sections present the most prominent architectural families—Feedforward, Convolutional, Recurrent, and Transformer networks—each tailored to specific data modalities and learning paradigms.
+
+
+\section{Feedforward Networks such as Multi Layer Perceptron (MLP)}
+
+Feedforward Neural Networks, commonly referred to as \textit{Multilayer Perceptrons (MLPs)}, represent the simplest and most fundamental class of neural network architectures. 
+They serve as the conceptual foundation upon which more advanced architectures—such as Convolutional, Recurrent, and Transformer models—are built. 
+An MLP processes information strictly in one direction: from input to output, without any recurrent or feedback connections.
+
+\begin{figure} [!h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/mlp_explained.png}
+    \caption{MLP}
+    \label{fig:placeholder}
+\end{figure}
+
+\vspace{1em}
+\subsection{Structure and Forward Propagation}
+
+An MLP is composed of three main components:
+\begin{itemize}
+    \item \textbf{Input layer:} receives the raw data, where each neuron corresponds to one input feature.
+    \item \textbf{Hidden layers:} perform a sequence of linear and nonlinear transformations to extract intermediate representations.
+    \item \textbf{Output layer:} produces the final prediction, whose dimensionality depends on the task (e.g., a single neuron for regression, or multiple neurons for classification).
+\end{itemize}
+
+Each layer in the network is fully connected to the next, meaning that every neuron in one layer influences every neuron in the subsequent layer through weighted connections. 
+Information flows forward through the network, with no cycles or memory of previous inputs.
+
+\vspace{0.5em}
+The data propagate through the network according to the following computation:
+\[
+h^{(1)} = \sigma(W^{(1)}x + b^{(1)}), \quad 
+h^{(2)} = \sigma(W^{(2)}h^{(1)} + b^{(2)}), \quad
+\hat{y} = f(W^{(3)}h^{(2)} + b^{(3)}),
+\]
+where $x$ represents the input vector, $W^{(l)}$ and $b^{(l)}$ are the trainable weights and biases of layer $l$, $\sigma(\cdot)$ is a nonlinear activation function (such as ReLU or GeLU), and $\hat{y}$ is the final network output. 
+
+\begin{figure} [!h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/forward_propagation.png}
+    \caption{Forward Propagation}
+    \label{fig:placeholder}
+\end{figure}
+
+\vspace{0.5em}
+The use of nonlinear activation functions between layers allows MLPs to model complex, non-linear relationships between inputs and outputs. 
+Without these nonlinearities, the composition of multiple layers would collapse into a single linear transformation, greatly limiting the model’s expressive power.
+
+\vspace{1em}
+\subsection{Mathematical Formulation}
+
+Formally, a feedforward network defines a parameterized function $f_{\theta}(x)$ that maps an input $x \in \mathbb{R}^d$ to an output $\hat{y} \in \mathbb{R}^k$:
+\[
+f_{\theta}(x) = W^{(L)} \, \sigma\!\left(W^{(L-1)} \, \sigma\!\left( \cdots \sigma(W^{(1)}x + b^{(1)}) \right) + b^{(L-1)} \right) + b^{(L)}.
+\]
+Here, $\theta = \{W^{(l)}, b^{(l)}\}_{l=1}^{L}$ represents all learnable parameters of the network. 
+The number of layers $L$ determines the network’s depth, while the number of neurons per layer determines its width and representational capacity.
+
+\vspace{0.5em}
+The \textit{Universal Approximation Theorem} states that a feedforward network with at least one hidden layer and a non-linear activation function can approximate any continuous function on a compact subset of $\mathbb{R}^n$, given sufficient neurons. 
+This theoretical result underscores the expressive power of even simple MLPs.
+
+\vspace{1em}
+\subsection{Training Process}
+
+Training an MLP involves adjusting its parameters $\theta$ to minimize a predefined loss function that quantifies the discrepancy between predicted outputs $\hat{y}$ and true targets $y$. 
+This optimization is typically performed using stochastic gradient descent (SGD) or one of its adaptive variants such as Adam or RMSProp. 
+Gradients of the loss function with respect to each parameter are computed efficiently using the \textit{backpropagation} algorithm.
+
+\vspace{0.5em}
+During training, techniques such as \textit{Dropout}, \textit{Batch Normalization}, and \textit{Weight Regularization} are commonly applied to improve generalization and prevent overfitting. 
+The learning rate, batch size, and number of hidden layers are hyperparameters that must be tuned based on the complexity of the dataset and the desired performance.
+
+\vspace{1em}
+\subsection{Applications and Limitations}
+
+Feedforward networks are versatile and can be applied to a wide range of problems, including:
+\begin{itemize}
+    \item \textbf{Regression tasks:} predicting continuous outcomes such as prices, temperatures, or sensor readings.
+    \item \textbf{Classification tasks:} assigning input samples to discrete categories.
+    \item \textbf{Representation learning:} serving as encoders or decoders in larger architectures such as autoencoders.
+\end{itemize}
+
+However, MLPs treat all input features as independent and lack mechanisms to exploit structural information such as spatial or temporal relationships. 
+This limitation motivates the development of specialized architectures like Convolutional Neural Networks (CNNs) for spatial data and Recurrent Neural Networks (RNNs) for sequential data.
+
+\vspace{1em}
+In summary, Feedforward Networks and MLPs form the conceptual foundation of modern deep learning. 
+They introduce the principles of layered computation, parameter optimization, and nonlinear transformation that underpin all subsequent neural architectures. 
+Although simple in structure, they remain powerful tools for modeling generic data and continue to play a central role in hybrid and advanced neural systems.
+
+\section{Convolutional Neural Networks (CNN)}
+
+Convolutional Neural Networks (CNNs) represent a specialized class of neural architectures designed to process data with a grid-like topology, such as images, audio spectrograms, or video frames. 
+They extend the concept of feedforward networks by introducing spatially local connections and shared weights, allowing them to efficiently capture hierarchical and translationally invariant features within structured inputs.
+
+\begin{figure} [!h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/cnn_explained.png}
+    \caption{CNN}
+    \label{fig:placeholder}
+\end{figure}
+
+\vspace{1em}
+\subsection{Motivation and Overview}
+
+Traditional feedforward networks treat all input features as independent and require a large number of parameters to process high-dimensional data, such as pixels in an image. 
+CNNs address this limitation by exploiting the spatial correlation between neighboring input elements. 
+Instead of connecting each neuron to every input unit, convolutional layers connect each neuron only to a small region of the input—called the \textit{receptive field}. 
+
+This localized connectivity enables CNNs to detect low-level features (e.g., edges, corners, or textures) in early layers, and progressively more complex patterns (e.g., shapes or objects) in deeper layers. 
+As a result, CNNs can learn compact and meaningful feature hierarchies with far fewer parameters than fully connected networks.
+
+\vspace{1em}
+\subsection{Convolutional Operations}
+
+The core operation of a CNN is the \textit{convolution}, which applies a set of learnable filters (kernels) to the input data. 
+For a 2D input image $I$ and a filter $K$ of size $m \times n$, the convolution operation is defined as:
+\[
+S(i,j) = (I * K)(i,j) = \sum_{u=0}^{m-1} \sum_{v=0}^{n-1} I(i+u, j+v) \, K(u,v),
+\]
+where $S(i,j)$ denotes the output feature map (also known as an activation map).  
+Each filter extracts a specific type of feature, and multiple filters operating in parallel produce several feature maps that capture different aspects of the input.
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/convolution-illustration.jpg}
+    \caption{Convolution Illustration}
+    \label{fig:placeholder}
+\end{figure}
+
+\vspace{0.5em}
+After each convolutional layer, nonlinear activation functions (such as ReLU) introduce nonlinearity, enabling the network to model complex relationships between features. 
+These layers are often followed by pooling operations that downsample the spatial dimensions, reducing computational cost and increasing translational robustness.
+
+\vspace{1em}
+\subsection{Architectural Components}
+
+A typical CNN architecture consists of several types of layers arranged in sequence:
+\begin{itemize}
+    \item \textbf{Convolutional layers:} perform feature extraction using multiple filters. 
+    The output of each convolution represents the response of a particular feature detector applied across the spatial domain.
+    \item \textbf{Pooling layers:} reduce the spatial dimensions of feature maps by summarizing local regions (e.g., using max or average pooling), improving computational efficiency and spatial invariance.
+    \item \textbf{Normalization layers:} such as Batch Normalization, stabilize and accelerate training by standardizing intermediate activations.
+    \item \textbf{Fully connected layers:} often used at the end of the network to combine the extracted features into a final decision (e.g., class probabilities).
+\end{itemize}
+
+\vspace{0.5em}
+Early CNN architectures such as \textit{LeNet-5} demonstrated the viability of this approach for digit recognition, while later models such as \textit{AlexNet}, \textit{VGGNet}, and \textit{GoogLeNet} introduced deeper hierarchies and more efficient filter designs. 
+Modern CNNs like \textit{ResNet} employ \textit{residual connections}—direct skip links between layers—to facilitate gradient flow and enable the training of extremely deep networks without performance degradation.
+
+\vspace{1em}
+\subsection{Training and Optimization}
+
+Training a CNN follows the same principles as other neural networks: parameters are optimized to minimize a loss function (e.g., cross-entropy for classification) using stochastic gradient descent (SGD) or adaptive optimizers such as Adam. 
+However, CNN training introduces specific challenges related to overfitting, computational cost, and vanishing gradients.
+
+\vspace{0.5em}
+To mitigate these issues, practitioners commonly employ:
+\begin{itemize}
+    \item \textbf{Data augmentation:} artificially increasing the diversity of training data through transformations such as rotation, scaling, or flipping.
+    \item \textbf{Regularization techniques:} such as Dropout and Weight Decay to improve generalization.
+    \item \textbf{Batch Normalization:} to stabilize learning dynamics and accelerate convergence.
+    \item \textbf{Transfer learning:} reusing pretrained CNNs (e.g., ResNet, VGG) as feature extractors for new tasks, significantly reducing training time and required data.
+\end{itemize}
+
+\vspace{1em}
+\subsection{Applications and Impact}
+
+CNNs have become the cornerstone of modern computer vision and beyond. 
+Their ability to learn spatial hierarchies of features has led to breakthroughs in tasks such as:
+\begin{itemize}
+    \item Image classification and object detection (e.g., ImageNet, YOLO, Faster R-CNN)
+    \item Semantic and instance segmentation (e.g., U-Net, Mask R-CNN)
+    \item Image generation and restoration (e.g., autoencoders, GANs)
+    \item Medical imaging, remote sensing, and visual inspection
+\end{itemize}
+
+Beyond vision, CNNs have also been successfully adapted to non-visual domains such as audio analysis, natural language processing, and time-series forecasting, where local dependencies and translation-invariant features are relevant.
+
+\vspace{1em}
+In summary, Convolutional Neural Networks introduced the concept of local receptive fields and parameter sharing, revolutionizing how deep models handle structured data. 
+Their hierarchical feature extraction and scalability make them one of the most influential architectures in the history of machine learning, forming the basis for numerous modern deep learning systems.
+
+
+\subsection{One-Dimensional Convolutional Neural Networks (1D-CNN)}
+
+While Convolutional Neural Networks (CNNs) are commonly associated with two-dimensional data such as images, 
+the same principles can be extended to one-dimensional signals.  
+\textit{One-Dimensional Convolutional Neural Networks (1D-CNNs)} are specialized architectures designed to process sequential or temporal data, 
+where information is arranged along a single spatial or time axis.
+
+\begin{figure} [!h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/cnn_1d.png}
+    \caption{CNN-1d}
+    \label{fig:placeholder}
+\end{figure}
+
+\vspace{0.5em}
+In a 1D convolution, each filter slides over the input sequence along one dimension—typically time or ordered features—and performs a convolution operation defined as:
+\[
+y[i] = \sum_{k=0}^{K-1} x[i + k] \, w[k],
+\]
+where $x$ is the input sequence, $w$ is a kernel of size $K$, and $y$ is the resulting feature map.  
+Unlike 2D convolutions, which operate over height and width, 1D convolutions only consider local neighborhoods within the temporal or feature dimension.
+
+\vspace{0.5em}
+This operation allows the network to capture \textit{local dependencies} within a sequence—such as short-term temporal correlations or characteristic patterns in signal segments.  
+By stacking multiple convolutional and pooling layers, 1D-CNNs can progressively model more abstract and long-range dependencies, similar to how 2D CNNs capture hierarchical visual features.
+
+\vspace{1em}
+\paragraph{Typical Architecture.}
+A 1D-CNN typically includes:
+\begin{itemize}
+    \item One or more \textbf{Conv1D layers}, each applying several filters to detect local patterns.
+    \item \textbf{Pooling layers} (e.g., MaxPooling1D) that downsample the sequence, reducing its length while preserving salient features.
+    \item Optionally, \textbf{Dropout layers} for regularization and \textbf{Batch Normalization} for training stability.
+    \item One or more \textbf{fully connected layers} that map the extracted temporal features to the final output (e.g., class probabilities or regression outputs).
+\end{itemize}
+
+\vspace{0.5em}
+For example, a Conv1D layer processing an input of shape $(\text{batch}, T, C)$, where $T$ is the sequence length and $C$ is the number of channels or features per time step, produces an output feature map of shape $(\text{batch}, T', F)$—with $F$ filters and a reduced temporal dimension $T'$ determined by the stride and kernel size.
+
+\vspace{1em}
+\paragraph{Applications.}
+1D-CNNs are widely applied in domains where data are naturally represented as ordered sequences, including:
+\begin{itemize}
+    \item \textbf{Signal processing:} ECG, EMG, EEG, and other biomedical signal classification or anomaly detection.
+    \item \textbf{Audio analysis:} speech command recognition, sound event detection, and waveform analysis.
+    \item \textbf{Time-series forecasting:} financial, meteorological, or industrial sensor data.
+    \item \textbf{Natural language processing:} sentence classification or keyword detection using fixed-length embeddings.
+\end{itemize}
+
+\vspace{0.5em}
+Compared to Recurrent Neural Networks (RNNs), 1D-CNNs can process sequences in parallel and often achieve faster training, 
+while still capturing essential local temporal patterns through their convolutional filters.  
+However, they are less effective in modeling very long-term dependencies, where recurrent or attention-based models (such as LSTMs or Transformers) typically perform better.
+
+\vspace{0.5em}
+\paragraph{Summary.}
+1D-CNNs extend the power of convolutional architectures to one-dimensional structured data, 
+combining efficiency, parallelism, and effective feature extraction for sequential tasks.  
+Their balance between simplicity and expressiveness makes them a strong choice for many practical applications involving time-dependent or ordered input data.
+
+
+
+\section{Recurrent and Sequential Models (RNN, LSTM, GRU)}
+
+Recurrent and sequential neural architectures are specifically designed to model data where the ordering of elements carries essential meaning. 
+Unlike feedforward and convolutional networks—which process inputs in fixed-size blocks—Recurrent Neural Networks (RNNs) operate on sequences of arbitrary length by maintaining an internal hidden state that evolves over time. 
+This recurrent mechanism enables the network to capture temporal dependencies, making it suitable for tasks involving language, speech, time-series data, and any domain where context and order matter.
+
+\vspace{1em}
+\subsection{Motivation and Overview}
+
+Sequential data exhibit dependencies between elements: a word depends on the previous words in a sentence, a sensor reading depends on earlier readings, and the pitch of a sound varies continuously over time.  
+Standard neural architectures fail to naturally capture these relationships because they treat each input independently.
+
+Recurrent models address this limitation by incorporating a \textit{memory mechanism}.  
+At each time step $t$, the model receives an input $x_t$, updates its hidden state $h_t$, and optionally produces an output $y_t$.  
+This process can be viewed as iteratively applying the same function across the sequence:
+\[
+h_t = f(h_{t-1}, x_t),
+\]
+where $h_t$ stores information extracted from all previous inputs.  
+This “shared-weight” structure allows RNNs to generalize across sequences of varying lengths.
+
+\vspace{1em}
+\subsection{Vanilla Recurrent Neural Networks (RNN)}
+
+The simplest recurrent model updates its hidden state using:
+\[
+h_t = \tanh(W_h h_{t-1} + W_x x_t + b),
+\]
+and may produce an output through:
+\[
+y_t = W_y h_t + c.
+\]
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/recurrent_neural_network.png}
+    \caption{RNN}
+    \label{fig:placeholder}
+\end{figure}
+
+\paragraph{Strengths:}
+\begin{itemize}
+    \item Compact and computationally efficient.
+    \item Able to capture short-term dependencies within sequences.
+\end{itemize}
+
+\paragraph{Limitations:}
+\begin{itemize}
+    \item \textbf{Vanishing gradients:} Gradients diminish during backpropagation through time, preventing the model from learning long-term dependencies.
+    \item \textbf{Exploding gradients:} Opposite issue where gradients grow uncontrollably, often requiring gradient clipping.
+\end{itemize}
+
+Despite these limitations, vanilla RNNs form the conceptual basis for more advanced sequential architectures.
+
+\vspace{1em}
+\subsection{Long Short-Term Memory Networks (LSTM)}
+
+LSTM networks address the vanishing-gradient problem by introducing a more sophisticated memory cell with gating mechanisms.  
+An LSTM maintains two states:
+\[
+h_t \quad\text{(hidden state)}, \qquad c_t \quad\text{(cell state)},
+\]
+where the cell state acts as a regulated memory highway, enabling the preservation of information over many time steps.
+
+The LSTM performs the following gated operations:
+\[
+\begin{aligned}
+f_t &= \sigma(W_f[h_{t-1}, x_t] + b_f)  && \text{(forget gate)},\\
+i_t &= \sigma(W_i[h_{t-1}, x_t] + b_i)  && \text{(input gate)},\\
+\tilde{c}_t &= \tanh(W_c[h_{t-1}, x_t] + b_c) && \text{(candidate memory)},\\
+c_t &= f_t \odot c_{t-1} + i_t \odot \tilde{c}_t && \text{(updated cell state)},\\
+o_t &= \sigma(W_o[h_{t-1}, x_t] + b_o) && \text{(output gate)},\\
+h_t &= o_t \odot \tanh(c_t). && \text{(updated hidden state)}
+\end{aligned}
+\]
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/LSTM.png}
+    \caption{LSTM}
+    \label{fig:placeholder}
+\end{figure}
+\paragraph{Why LSTMs work:}
+\begin{itemize}
+    \item The forget gate $f_t$ controls how much past information to retain.
+    \item The input gate $i_t$ controls how much new information to write.
+    \item The output gate $o_t$ controls how much of the memory to expose.
+\end{itemize}
+
+This flexible gating mechanism allows LSTMs to capture long-range dependencies and avoid the shortcomings of vanilla RNNs.
+
+\vspace{1em}
+\subsection{Gated Recurrent Units (GRU)}
+
+GRUs simplify the LSTM architecture while retaining its ability to handle long-term dependencies.  
+They merge the cell and hidden states into a single state $h_t$ and use only two gates:
+
+\[
+\begin{aligned}
+z_t &= \sigma(W_z[h_{t-1}, x_t] + b_z) && \text{(update gate)},\\
+r_t &= \sigma(W_r[h_{t-1}, x_t] + b_r) && \text{(reset gate)},\\
+\tilde{h}_t &= \tanh(W_h[r_t \odot h_{t-1}, x_t] + b_h),\\
+h_t &= (1 - z_t)\odot h_{t-1} + z_t \odot \tilde{h}_t.
+\end{aligned}
+\]
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/GRU.png}
+    \caption{GRU}
+    \label{fig:placeholder}
+\end{figure}
+
+\paragraph{Advantages of GRUs:}
+\begin{itemize}
+    \item Fewer parameters than LSTMs → faster training and lower memory usage.
+    \item Competitive or superior performance in many tasks.
+    \item Simpler gating mechanism → easier to tune and analyze.
+\end{itemize}
+
+GRUs strike an effective balance between model expressiveness and computational efficiency.
+
+\vspace{1em}
+\subsection{Training and Practical Considerations}
+
+\paragraph{Backpropagation Through Time (BPTT).}
+Training RNNs involves unrolling the network across time steps and computing gradients through each step.  
+Longer sequences increase computational cost and exacerbate vanishing/exploding gradients.
+
+\paragraph{Regularization.}
+Sequential models often require:
+\begin{itemize}
+    \item Dropout (applied carefully, e.g., variational dropout),
+    \item Gradient clipping to prevent exploding gradients,
+    \item Layer normalization for stability,
+    \item Truncated BPTT for long sequences.
+\end{itemize}
+
+\paragraph{Comparison.}
+\begin{itemize}
+    \item RNNs: simplest, good for short dependencies.
+    \item LSTMs: strong long-term memory, robust but computationally heavy.
+    \item GRUs: lighter than LSTMs, often similar performance.
+\end{itemize}
+
+\vspace{1em}
+\subsection{Applications}
+
+Recurrent models remain widely used in:
+\begin{itemize}
+    \item Natural language processing (text generation, sentiment analysis),
+    \item Speech recognition and audio modeling,
+    \item Time-series forecasting (financial, environmental, industrial data),
+    \item Sequential classification and anomaly detection.
+\end{itemize}
+
+Although many modern architectures (e.g., Transformers) outperform RNN-based models in large-scale NLP, recurrent models remain valuable for smaller datasets, real-time systems, and tasks requiring compact temporal reasoning.
+
+\vspace{1em}
+\subsection{Summary}
+
+Recurrent and sequential models introduce the ability to learn from ordered data via hidden-state dynamics.  
+RNNs establish the foundation, LSTMs address long-term dependency issues through gating mechanisms, and GRUs offer a streamlined alternative with competitive performance.  
+Understanding these architectures is essential for modeling any domain where temporal structure or sequential relationships are fundamental.
+
+\section{Transformer Architectures and Attention Mechanisms}
+
+Transformer architectures represent a fundamental shift in how neural networks process sequential data. 
+Unlike recurrent models, which rely on recursive hidden-state updates, Transformers operate entirely through attention mechanisms—allowing them to capture global dependencies in parallel and with remarkable efficiency.  
+This architecture has become the foundation of modern deep learning systems across natural language processing, computer vision, speech, and multimodal domains.
+
+\vspace{1em}
+\subsection{Motivation and Overview}
+
+Sequential models such as RNNs and LSTMs process data token by token, limiting parallelization and making it difficult to model long-range dependencies due to gradient degradation.  
+Transformers address these limitations by replacing recurrence with a \textit{self-attention} mechanism that directly relates every element of the input sequence to every other element, regardless of distance.
+
+The core idea is to learn \textit{contextualized representations} of each token by considering its interactions with all other tokens in the sequence.  
+This approach allows the model to:
+\begin{itemize}
+    \item process all sequence positions in parallel,
+    \item model long-term relationships with ease,
+    \item scale efficiently with modern hardware.
+\end{itemize}
+
+These properties have led Transformers to dominate contemporary architectures, particularly in large-scale language models such as BERT, GPT, T5, and multimodal systems like Vision Transformers (ViT) and CLIP.
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/transformer_arch.png}
+    \caption{Transformer Architectures and Attention Mechanisms}
+    \label{fig:placeholder}
+\end{figure}
+
+\vspace{1em}
+\subsection{Self-Attention Mechanism}
+
+The self-attention mechanism computes the relevance of each token to every other token.  
+Given an input sequence represented as embeddings $X \in \mathbb{R}^{T \times d}$ (length $T$, dimension $d$), three learned linear projections produce:
+\[
+Q = XW^Q, \qquad K = XW^K, \qquad V = XW^V,
+\]
+where $Q$, $K$, and $V$ denote the queries, keys, and values.
+
+Self-attention computes:
+\[
+\text{Attention}(Q,K,V) 
+= \text{softmax}\!\left( \frac{QK^\top}{\sqrt{d_k}} \right) V,
+\]
+where $d_k$ is the dimensionality of the keys.  
+The softmax term produces an attention weight matrix that determines how much each token contributes to the representation of every other token.
+
+\paragraph{Intuition:}
+\begin{itemize}
+    \item Each query vector asks: “What other parts of the sequence are relevant to me?”
+    \item Keys provide information for matching queries.
+    \item Values supply the content to be aggregated based on relevance.
+\end{itemize}
+
+This mechanism allows the network to build flexible, context-aware representations of the entire sequence.
+
+\vspace{1em}
+\subsection{Multi-Head Attention}
+
+Instead of using a single attention computation, Transformers employ \textit{multi-head attention}, where multiple attention heads operate in parallel, each learning a distinct type of relationship.
+
+For $H$ heads:
+\[
+\text{MHA}(X) = \text{Concat}(\text{head}_1, \dots, \text{head}_H)W^O,
+\]
+where each head performs:
+\[
+\text{head}_i = \text{Attention}(XW_i^Q, XW_i^K, XW_i^V).
+\]
+
+\paragraph{Why multiple heads?}
+\begin{itemize}
+    \item Capture diverse patterns (syntax, semantics, global vs. local features).
+    \item Stabilize learning by distributing representational burden.
+    \item Improve expressiveness and flexibility.
+\end{itemize}
+
+\vspace{1em}
+\subsection{Positional Encoding}
+
+Because Transformers lack recurrence and convolution, they require an explicit mechanism to encode sequence order.  
+Positional encodings inject information about token positions into the embeddings:
+\[
+PE_{(t,2i)} = \sin\left( \frac{t}{10000^{2i/d}} \right),
+\qquad
+PE_{(t,2i+1)} = \cos\left( \frac{t}{10000^{2i/d}} \right),
+\]
+where $t$ is the position index and $i$ indexes embedding dimensions.  
+Alternatively, learned positional embeddings can be used.
+
+\paragraph{Purpose:}
+\begin{itemize}
+    \item Allow the model to distinguish token ordering.
+    \item Provide periodic structure useful for capturing relative distances.
+\end{itemize}
+
+\vspace{1em}
+\subsection{Transformer Encoder and Decoder}
+
+The original Transformer architecture, introduced in “Attention Is All You Need,” consists of an \textit{encoder} and \textit{decoder}, each composed of repeated layers.
+
+\paragraph{Encoder layer:}
+\begin{itemize}
+    \item Multi-Head Self-Attention
+    \item Feedforward network (pointwise MLP)
+    \item Layer normalization
+    \item Residual connections
+\end{itemize}
+
+\paragraph{Decoder layer:}
+\begin{itemize}
+    \item Masked multi-head self-attention (prevents peeking at future tokens)
+    \item Cross-attention over encoder outputs
+    \item Feedforward network
+    \item Layer normalization + residuals
+\end{itemize}
+
+This structure enables sequence-to-sequence tasks such as translation, summarization, and question answering.
+
+\vspace{1em}
+\subsection{Feedforward Networks in Transformers}
+
+Each Transformer layer includes a position-wise feedforward network:
+\[
+\text{FFN}(x) = W_2 \, \sigma(W_1 x + b_1) + b_2,
+\]
+often using the GeLU activation.  
+These networks expand the dimensionality of hidden representations before compressing them back, increasing expressiveness within each layer.
+
+\vspace{1em}
+\subsection{Training, Optimization, and Scalability}
+
+Transformers train effectively using adaptive optimizers (e.g., AdamW) combined with learning rate warm-up and cosine decay schedules.  
+Their key advantages include:
+\begin{itemize}
+    \item Full parallelism across sequence positions,
+    \item Ability to scale to billions of parameters,
+    \item Efficient use of GPU/TPU hardware,
+    \item Robust modeling of long-range dependencies.
+\end{itemize}
+
+However, self-attention has quadratic complexity $O(T^2)$ with respect to sequence length, motivating research into efficient alternatives such as Longformer, Performer, and FlashAttention.
+
+\vspace{1em}
+\subsection{Applications and Impact}
+
+Transformers have revolutionized deep learning and now dominate:
+\begin{itemize}
+    \item Natural language processing (machine translation, large language models),
+    \item Computer vision (Vision Transformers, segmentation, multimodal fusion),
+    \item Speech processing and audio modeling,
+    \item Time-series forecasting,
+    \item Multi-modal and cross-modal systems (CLIP, Flamingo, GPT-4/5).
+\end{itemize}
+
+Their flexibility and scalability have made them the leading architecture for state-of-the-art models across domains.
+
+\vspace{1em}
+\subsection{Summary}
+
+Transformer architectures fundamentally changed sequential modeling by replacing recurrence with attention.  
+Self-attention enables the network to directly capture global dependencies, while multi-head mechanisms enrich contextual understanding.  
+Positional encodings restore sequence structure, and feedforward layers enhance representational power.  
+These innovations have established Transformers as the core architecture driving modern AI systems.
+
+
+\chapter{Core Components and Techniques}
+\section{Activation Functions (ReLU, GeLU, Sigmoid, Tanh)}
+
+Activation functions are essential components of neural networks that introduce nonlinearity into the model. 
+Without them, even a deep network composed of multiple layers would collapse into a single linear transformation, 
+severely limiting its ability to approximate complex functions.  
+By applying a nonlinear mapping to each neuron’s output, activation functions enable networks to learn intricate relationships, 
+extract abstract representations, and capture hierarchical patterns in data.
+
+\vspace{1em}
+\subsection{Theoretical Role of Activation Functions}
+
+In a neural layer, the pre-activation value for a neuron is computed as:
+\[
+z = W x + b,
+\]
+where $W$ and $b$ are the layer’s parameters, and $x$ is the input vector.  
+The activation function $\sigma(\cdot)$ then transforms $z$ into the neuron’s output:
+\[
+h = \sigma(z).
+\]
+This nonlinearity is crucial for enabling the network to represent functions that are not linearly separable.  
+It allows stacked layers to progressively build complex mappings from simple compositions.
+
+\vspace{0.5em}
+Different activation functions exhibit different behaviors in terms of gradient flow, computational efficiency, and representational capacity.  
+The choice of activation can significantly impact convergence speed, model stability, and overall performance.
+
+\vspace{1em}
+\subsection{Rectified Linear Unit (ReLU)}
+
+The \textit{Rectified Linear Unit (ReLU)} is one of the most commonly used activation functions in deep learning, defined as:
+\[
+\text{ReLU}(x) = \max(0, x).
+\]
+ReLU outputs the input directly if it is positive and zero otherwise, introducing sparsity in the activations and enabling efficient computation.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/relu.png}
+    \caption{ReLU activation function}
+    \label{fig:placeholder}
+\end{figure}
+
+\paragraph{Advantages:}
+\begin{itemize}
+    \item Promotes sparse activation, reducing interdependence among neurons.
+    \item Avoids gradient saturation for positive values, leading to faster convergence.
+    \item Computationally simple and efficient.
+\end{itemize}
+
+\paragraph{Disadvantages:}
+\begin{itemize}
+    \item \textbf{Dying ReLU problem:} Neurons can become inactive (always output zero) when their inputs remain negative, effectively “dying” during training.
+\end{itemize}
+
+\paragraph{Example intuition:}
+Consider a regression model predicting house prices. ReLU allows positive features like “number of rooms” or “square meters” to contribute linearly to the prediction, while naturally ignoring negative or irrelevant signals.
+
+\vspace{1em}
+\subsection{Gaussian Error Linear Unit (GeLU)}
+
+The \textit{Gaussian Error Linear Unit (GeLU)} is a smoother alternative to ReLU, defined as:
+\[
+\text{GeLU}(x) = x \, \Phi(x),
+\]
+where $\Phi(x)$ is the cumulative distribution function (CDF) of the standard normal distribution.  
+In practice, it is often approximated by:
+\[
+\text{GeLU}(x) \approx 0.5x \left(1 + \tanh\!\left[\sqrt{\frac{2}{\pi}}(x + 0.044715x^3)\right]\right).
+\]
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/GELU.png}
+    \caption{GELU activation function}
+    \label{fig:placeholder}
+\end{figure}
+
+\paragraph{Intuition:}
+Instead of deterministically zeroing out negative values (like ReLU), GeLU smoothly scales them based on their magnitude—small negative inputs are partially suppressed, while larger positive ones pass almost unchanged.  
+This stochastic gating behavior improves representational richness and gradient flow.
+
+\paragraph{Advantages:}
+\begin{itemize}
+    \item Smooth and differentiable everywhere.
+    \item Empirically improves performance in Transformer architectures (e.g., BERT, GPT).
+    \item Retains some gradient for small negative inputs, mitigating neuron death.
+\end{itemize}
+
+\paragraph{When to use:}
+Ideal for large-scale language or vision models where smoothness and stable gradient propagation are critical.
+
+\vspace{1em}
+\subsection{Sigmoid Function}
+
+The \textit{Sigmoid} activation function maps any real-valued input into the range $(0,1)$:
+\[
+\sigma(x) = \frac{1}{1 + e^{-x}}.
+\]
+It is historically one of the first activation functions used in neural networks and remains common in the output layers of binary classification models.
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/sigmoid.png}
+    \caption{Sigmoid function activation}
+    \label{fig:placeholder}
+\end{figure}
+
+\paragraph{Advantages:}
+\begin{itemize}
+    \item Outputs interpretable as probabilities.
+    \item Smooth and differentiable, suitable for probabilistic modeling.
+\end{itemize}
+
+\paragraph{Disadvantages:}
+\begin{itemize}
+    \item \textbf{Vanishing gradients:} For large positive or negative inputs, derivatives approach zero, slowing or halting learning.
+    \item \textbf{Non-zero-centered output:} Causes gradient bias and slower convergence in deep networks.
+\end{itemize}
+
+\paragraph{Example:}
+In binary classification (e.g., spam vs. non-spam), the sigmoid is often used in the output layer to predict the probability of belonging to the positive class.
+
+\vspace{1em}
+\subsection{Hyperbolic Tangent (Tanh)}
+
+The \textit{Tanh} function is a rescaled version of the sigmoid:
+\[
+\tanh(x) = \frac{e^{x} - e^{-x}}{e^{x} + e^{-x}}.
+\]
+It maps inputs to the range $(-1,1)$ and is zero-centered, which helps balance positive and negative activations.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/tanh.png}
+    \caption{Hyperbolic Tangeng activation function}
+    \label{fig:placeholder}
+\end{figure}
+
+\paragraph{Advantages:}
+\begin{itemize}
+    \item Zero-centered output helps with gradient-based optimization.
+    \item Retains stronger gradients than sigmoid near the origin.
+\end{itemize}
+
+\paragraph{Disadvantages:}
+\begin{itemize}
+    \item Still prone to vanishing gradients for large $|x|$.
+    \item More computationally expensive than ReLU.
+\end{itemize}
+
+\paragraph{Example:}
+Tanh activations are often used in recurrent networks such as RNNs and LSTMs to model nonlinear dependencies while maintaining bounded activations.
+
+\vspace{1em}
+\subsection{Comparison and Practical Recommendations}
+
+\begin{itemize}
+    \item \textbf{ReLU:} Default choice for most networks due to simplicity and efficiency.
+    \item \textbf{GeLU:} Preferred in modern deep architectures (Transformers) for smooth gradients and improved expressiveness.
+    \item \textbf{Sigmoid:} Useful primarily for binary outputs or probabilistic interpretations.
+    \item \textbf{Tanh:} Effective for sequential data and in hidden layers of recurrent architectures.
+\end{itemize}
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/Sigmoid-Tanh-ReLU-and-GELU-activation-function.png}
+    \caption{Comparation between Sigmoid, Tanh, ReLU and GELU}
+    \label{fig:placeholder}
+\end{figure}
+
+\vspace{0.5em}
+In practice, activation choice affects not only convergence speed but also final model performance and stability.  
+ReLU remains a strong baseline for most vision and feedforward models, while GeLU is dominant in NLP and Transformer-based systems.  
+Sigmoid and Tanh retain specialized relevance in probabilistic and recurrent contexts.
+
+\vspace{1em}
+\subsection{Summary}
+
+Activation functions provide the nonlinear transformations that allow deep networks to model complex, high-dimensional relationships.  
+While ReLU introduced simplicity and efficiency, newer functions such as GeLU refined smoothness and gradient behavior.  
+The appropriate choice depends on the task, data distribution, and architecture—but understanding their mathematical properties remains central to effective neural network design.
+
+
+\section{Linear and Dense Layers (e.g., \texttt{nn.Linear})}
+
+Linear or dense layers constitute one of the fundamental building blocks of neural networks. 
+They apply an affine transformation to their input, enabling the model to learn weighted combinations of features.  
+Despite their simplicity, linear layers are essential for constructing deep architectures, performing dimensionality transformations, and forming the core of many modern models—from feedforward networks to Transformers.
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/layers.png}
+    \caption{Linear and Dense Layers}
+    \label{fig:placeholder}
+\end{figure}
+
+\vspace{1em}
+\subsection{Definition and Mathematical Formulation}
+
+A linear layer implements the mapping:
+\[
+y = Wx + b,
+\]
+where:
+\begin{itemize}
+    \item $x \in \mathbb{R}^{d_{\text{in}}}$ is the input vector,
+    \item $W \in \mathbb{R}^{d_{\text{out}} \times d_{\text{in}}}$ is the weight matrix,
+    \item $b \in \mathbb{R}^{d_{\text{out}}}$ is the bias vector,
+    \item $y \in \mathbb{R}^{d_{\text{out}}}$ is the output.
+\end{itemize}
+
+In PyTorch, this operation is implemented via:
+\[
+\texttt{nn.Linear}(d_{\text{in}}, d_{\text{out}}),
+\]
+which automatically handles weight initialization, parameter storage, and gradient computation.
+
+The layer conducts a weighted sum of the input components and adds a learnable bias term.  
+Without any activation function, this transformation remains strictly linear; stacking several linear layers without nonlinearities collapses into an equivalent single linear transformation.
+
+\vspace{1em}
+\subsection{Role Within Neural Architectures}
+
+Linear layers serve various purposes across different architectures:
+
+\paragraph{Feature Transformation.}  
+They project inputs into new feature spaces, often changing dimensionality (e.g., reducing or expanding representation size).
+
+\paragraph{Combining Extracted Features.}  
+After convolutional or recurrent layers, linear layers aggregate learned features and prepare them for classification or regression tasks.
+
+\paragraph{Final Output Layers.}  
+Many models conclude with a linear layer that maps internal representations to:
+\begin{itemize}
+    \item probabilities (via a subsequent softmax),
+    \item numerical predictions (regression),
+    \item logits for classification.
+\end{itemize}
+
+\paragraph{Transformers and Attention.}  
+In Transformers, linear projections generate queries, keys, and values:
+\[
+Q = XW^Q, \quad K = XW^K, \quad V = XW^V,
+\]
+and the feedforward sublayers rely entirely on dense transformations.
+
+\vspace{1em}
+\subsection{Dimensionality and Shape Considerations}
+
+Given an input tensor of shape:
+\[
+(\text{batch}, T, d_{\text{in}}),
+\]
+a linear layer applied along the last dimension returns:
+\[
+(\text{batch}, T, d_{\text{out}}),
+\]
+allowing seamless integration into networks handling sequences, time-series, and token embeddings.
+
+In feedforward networks, the common shape is:
+\[
+(\text{batch}, d_{\text{in}}) \rightarrow (\text{batch}, d_{\text{out}}).
+\]
+
+The ability to operate on arbitrarily shaped tensors makes linear layers highly versatile.
+
+\vspace{1em}
+\subsection{Initialization and Trainability}
+
+Linear layers typically initialize weights using distributions designed to maintain stable gradients:
+\begin{itemize}
+    \item Xavier/Glorot initialization for symmetric activations,
+    \item Kaiming/He initialization for ReLU-based networks.
+\end{itemize}
+
+Poor initialization can hinder learning, cause vanishing or exploding gradients, or slow convergence.  
+Proper initialization is especially important in deep networks where many linear layers are stacked sequentially.
+
+\vspace{1em}
+\subsection{Regularization and Stabilization Techniques}
+
+Dense layers often require additional components to ensure stable and generalizable training:
+\begin{itemize}
+    \item \textbf{Dropout} to prevent co-adaptation and reduce overfitting,
+    \item \textbf{BatchNorm or LayerNorm} to stabilize activations,
+    \item \textbf{Weight decay} to constrain the magnitude of weights.
+\end{itemize}
+
+When combined with nonlinear activations (ReLU, GeLU), these techniques turn linear layers into powerful function approximators.
+
+\vspace{1em}
+\subsection{Example: A Simple Two-Layer MLP Block}
+
+Consider the block:
+\[
+h = \sigma(W_1 x + b_1), \qquad y = W_2 h + b_2,
+\]
+where $\sigma$ is a nonlinear activation function.  
+This structure forms the foundational unit of a Multi-Layer Perceptron (MLP).  
+The combination of two linear transformations with a nonlinearity allows the network to approximate highly complex functions.
+
+\vspace{1em}
+\subsection{Summary}
+
+Linear layers provide flexible and efficient mappings between feature spaces, forming the backbone of both classical and modern neural architectures.  
+By learning weighted combinations of inputs, they enable deep networks to extract, transform, and combine representations across tasks and data modalities.  
+Despite their simplicity, dense layers remain indispensable components of deep learning systems and interact closely with activation functions, normalization layers, and regularization techniques to build expressive models.
+
+
+
+\section{Normalization Layers (BatchNorm, LayerNorm, GroupNorm)}
+
+Normalization layers are essential components in modern neural networks, designed to stabilize training, improve convergence speed, and enhance generalization. 
+They operate by normalizing activations according to specific statistical properties, reducing internal covariate shift and smoothing the optimization landscape.  
+Different normalization strategies exist to accommodate various data modalities, batch sizes, and architectural constraints.  
+This section covers three of the most widely used methods: Batch Normalization, Layer Normalization, and Group Normalization.
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/normalization.png}
+    \caption{Normalization Technique}
+    \label{fig:placeholder}
+\end{figure}
+
+\vspace{1em}
+\subsection{Motivation for Normalization}
+
+During training, the distribution of activations in intermediate layers can shift as parameters update—a phenomenon known as \textit{internal covariate shift}.  
+This shift makes optimization more difficult and often requires carefully tuned learning rates or initialization schemes.
+
+Normalization layers mitigate this issue by:
+\begin{itemize}
+    \item stabilizing the distribution of activations,
+    \item smoothing the loss landscape,
+    \item enabling deeper networks to train effectively,
+    \item reducing sensitivity to initialization,
+    \item acting as implicit regularizers.
+\end{itemize}
+
+While the core idea—subtracting a mean and scaling by a variance—is shared, each normalization method differs in how these statistics are computed.
+
+\vspace{1em}
+\subsection{Batch Normalization (BatchNorm)}
+
+Batch Normalization normalizes activations across the \textit{batch dimension}.  
+Given activations $x \in \mathbb{R}^{N \times C \times H \times W}$ (typical for CNNs), BatchNorm computes:
+\[
+\mu_c = \frac{1}{N \cdot H \cdot W} \sum_{n,h,w} x_{nchw}, 
+\qquad 
+\sigma_c^2 = \frac{1}{N \cdot H \cdot W} \sum_{n,h,w} (x_{nchw} - \mu_c)^2.
+\]
+The normalized output is:
+\[
+\hat{x}_{nchw} = \frac{x_{nchw} - \mu_c}{\sqrt{\sigma_c^2 + \epsilon}}.
+\]
+BatchNorm then applies learnable affine parameters:
+\[
+y_{nchw} = \gamma_c \hat{x}_{nchw} + \beta_c.
+\]
+
+\paragraph{Advantages:}
+\begin{itemize}
+    \item Strong empirical success in CNNs.
+    \item Allows higher learning rates and faster convergence.
+    \item Acts as a regularizer, often reducing the need for dropout.
+\end{itemize}
+
+\paragraph{Limitations:}
+\begin{itemize}
+    \item Performance degrades with small batch sizes.
+    \item Unreliable in recurrent models due to temporal ordering.
+    \item Requires maintaining running averages for inference.
+\end{itemize}
+
+\vspace{1em}
+\subsection{Layer Normalization (LayerNorm)}
+
+Layer Normalization normalizes across the \textit{feature dimension} rather than the batch dimension.  
+Given activations $x \in \mathbb{R}^{N \times T \times D}$ (typical for sequences or token embeddings), LayerNorm computes:
+\[
+\mu = \frac{1}{D} \sum_{i=1}^D x_i,
+\qquad
+\sigma^2 = \frac{1}{D} \sum_{i=1}^D (x_i - \mu)^2.
+\]
+Each sample is normalized independently:
+\[
+\hat{x} = \frac{x - \mu}{\sqrt{\sigma^2 + \epsilon}},
+\qquad
+y = \gamma \hat{x} + \beta.
+\]
+
+\paragraph{Advantages:}
+\begin{itemize}
+    \item Stable for small batch sizes (batch size 1 allowed).
+    \item Highly effective for sequential models (RNNs, Transformers).
+    \item Eliminates dependency on batch statistics.
+\end{itemize}
+
+\paragraph{Limitations:}
+\begin{itemize}
+    \item Slightly slower than BatchNorm in CNNs due to lack of batch parallelism.
+    \item May not perform as well as BatchNorm in pure convolutional pipelines.
+\end{itemize}
+
+LayerNorm is the default normalization in Transformers, applied before or after attention and feedforward sublayers.
+
+\vspace{1em}
+\subsection{Group Normalization (GroupNorm)}
+
+Group Normalization divides the channels into groups and normalizes within each group.  
+Given activations $x \in \mathbb{R}^{N \times C \times H \times W}$, with $G$ groups, each group contains $C/G$ channels.  
+GroupNorm computes mean and variance for each group:
+\[
+\mu_g = \frac{1}{m} \sum_{i \in \text{group } g} x_i,
+\qquad
+\sigma_g^2 = \frac{1}{m} \sum_{i \in \text{group } g} (x_i - \mu_g)^2,
+\]
+where $m$ is the number of elements per group.
+
+The normalized output is computed similarly to other methods, followed by learnable $\gamma$ and $\beta$.
+
+\paragraph{Advantages:}
+\begin{itemize}
+    \item Independent of batch size—excellent for small-batch or single-sample training.
+    \item Works consistently for CNNs and dense architectures.
+    \item A generalization: LayerNorm = GroupNorm with $G = C$, InstanceNorm = $G = C$ with no affine parameters.
+\end{itemize}
+
+\paragraph{Limitations:}
+\begin{itemize}
+    \item Requires choosing the number of groups.
+    \item Slightly heavier computation than BatchNorm.
+\end{itemize}
+
+GroupNorm became useful in applications that rely on small batch sizes such as medical imaging, GAN training, or heavy data augmentation pipelines.
+
+\vspace{1em}
+\subsection{Comparison and Practical Guidelines}
+
+\begin{itemize}
+    \item \textbf{BatchNorm} is usually the best choice for CNNs when batch size is sufficiently large.
+    \item \textbf{LayerNorm} is the preferred method for Transformers, RNNs, and any sequence-based model.
+    \item \textbf{GroupNorm} is effective for convolutional architectures when batch sizes are small or unstable.
+\end{itemize}
+
+The choice of normalization significantly affects convergence behavior, stability, and final performance—especially in deep models.
+
+\vspace{1em}
+\subsection{Summary}
+
+Normalization layers improve training stability and efficiency by stabilizing activation distributions.  
+BatchNorm excels in convolutional networks with large batches, LayerNorm dominates in sequence models and Transformers, and GroupNorm fills the gap when batch size constraints limit BatchNorm’s effectiveness.  
+Together, these techniques play a crucial role in enabling deep networks to train reliably and generalize effectively across diverse data domains.
+
+
+\section{Dropout and Regularization Techniques}
+
+Regularization refers to a collection of strategies used to improve a model’s generalization ability and prevent overfitting. 
+As neural networks increase in depth and capacity, they become prone to memorizing training data rather than learning patterns that generalize to unseen samples.  
+Dropout and other regularization methods mitigate this risk by constraining the model, injecting noise, or penalizing overly complex solutions.  
+This section provides a clear overview of the most commonly used regularization techniques in modern deep learning.
+
+\vspace{1em}
+\subsection{The Problem of Overfitting}
+
+Overfitting occurs when a model performs well on training data but poorly on validation or test data.  
+It typically arises when:
+\begin{itemize}
+    \item the model has too many parameters relative to dataset size,
+    \item training is excessively long without proper constraints,
+    \item noise or outliers fit “too tightly,”
+    \item the model learns spurious correlations instead of true structure.
+\end{itemize}
+
+Regularization introduces bias or constraints that help guide the model toward simpler, more robust solutions.
+
+\vspace{1em}
+\subsection{Dropout}
+
+Dropout is one of the most widely used regularization techniques in deep neural networks.  
+During training, it randomly “drops” a fraction of neuron activations by setting them to zero with probability $p$:
+\[
+h_i' = 
+\begin{cases}
+0 & \text{with probability } p, \\
+h_i / (1-p) & \text{with probability } 1-p.
+\end{cases}
+\]
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/dropout.png}
+    \caption{Dropout}
+    \label{fig:placeholder}
+\end{figure}
+
+The scaling factor $1/(1-p)$ ensures that the expected activation magnitude remains consistent between training and inference.
+
+\paragraph{Intuition.}
+Dropout can be viewed as training an ensemble of networks that share weights:
+\begin{itemize}
+    \item Each training pass samples a different subnetwork.
+    \item No single neuron can rely on other specific neurons.
+    \item The network learns redundant, robust representations.
+\end{itemize}
+
+\paragraph{Typical choices.}
+\begin{itemize}
+    \item $p = 0.5$ for fully connected layers,
+    \item $p = 0.1$–$0.3$ for convolutional or recurrent architectures,
+    \item specialized variants in RNNs ensure dropout is applied consistently across time steps.
+\end{itemize}
+
+\paragraph{Advantages.}
+\begin{itemize}
+    \item Strong reduction of co-adaptation between neurons.
+    \item Effective in large MLPs, CNNs, and some RNN variants.
+    \item Simple, efficient, and widely supported in all frameworks.
+\end{itemize}
+
+\vspace{1em}
+\subsection{Weight Decay (L2 Regularization)}
+
+Weight decay penalizes large weights by adding an $L_2$ penalty to the loss:
+\[
+\mathcal{L}'(\theta) = \mathcal{L}(\theta) + \lambda \|\theta\|_2^2.
+\]
+This encourages the model to distribute importance across many weights rather than depending heavily on a few large parameters.
+
+\paragraph{Benefits.}
+\begin{itemize}
+    \item Improves generalization by reducing weight magnitudes.
+    \item Promotes smoother decision boundaries and less variance.
+\end{itemize}
+
+AdamW modifies this concept by decoupling weight decay from gradient-based updates—now standard in Transformer training.
+
+\vspace{1em}
+\subsection{Early Stopping}
+
+Early stopping halts training once validation performance stops improving.  
+Even if training loss continues to decrease, the model may begin to overfit, so stopping at the optimal point ensures better generalization.
+
+\paragraph{Procedure.}
+\begin{itemize}
+    \item Monitor validation loss or accuracy each epoch.
+    \item Stop training after a patience window with no improvement.
+    \item Restore the model to the best checkpoint encountered.
+\end{itemize}
+
+This technique is simple yet remarkably effective.
+
+\vspace{1em}
+\subsection{Data Augmentation}
+
+In tasks like image or audio classification, data augmentation artificially expands the training set by applying label-preserving transformations:
+\begin{itemize}
+    \item random rotations, flips, crops,
+    \item color jittering,
+    \item time warping or frequency masking (audio),
+    \item random erasing or cutout.
+\end{itemize}
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/augmentation.png}
+    \caption{Data Augmentation}
+    \label{fig:placeholder}
+\end{figure}
+
+Augmentation reduces overfitting by increasing data diversity and forcing the model to learn invariances.
+
+\vspace{1em}
+\subsection{Label Smoothing}
+
+Label smoothing prevents the model from becoming overconfident by softening the target distribution.  
+Instead of a one-hot label $y_k = 1$, we assign:
+\[
+y_k = 1 - \epsilon, \qquad y_{j \neq k} = \frac{\epsilon}{K-1},
+\]
+with smoothing parameter $\epsilon$ and number of classes $K$.
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/label_smoothing.jpg}
+    \caption{Label Smoothing}
+    \label{fig:placeholder}
+\end{figure}
+
+\paragraph{Effects.}
+\begin{itemize}
+    \item Prevents overconfident predictions.
+    \item Improves calibration and robustness.
+    \item Widely used in Transformers and classification models.
+\end{itemize}
+
+\vspace{1em}
+\subsection{Other Regularization Strategies}
+
+\paragraph{Noise Injection.}  
+Add noise to inputs, hidden states, or weights to reduce sensitivity to small fluctuations.
+
+\paragraph{DropConnect.}  
+Randomly drop weights instead of activations—similar spirit to dropout.
+
+\paragraph{Stochastic Depth.}  
+Randomly skip entire layers during training; used in deep ResNets and Vision Transformers.
+
+\paragraph{Mixup and CutMix.}  
+Blend or mix portions of training examples along with labels to improve robustness and reduce reliance on spurious correlations.
+
+\vspace{1em}
+\subsection{Choosing the Right Regularization Technique}
+
+\begin{itemize}
+    \item \textbf{Large MLPs:} Dropout + weight decay.
+    \item \textbf{CNNs:} Data augmentation + weight decay; small dropout in dense layers.
+    \item \textbf{Transformers:} Dropout + LayerNorm + AdamW + label smoothing.
+    \item \textbf{RNNs:} Variational dropout + gradient clipping.
+\end{itemize}
+
+Specific architectures and datasets benefit from different forms of regularization, and combining several is often most effective.
+
+\vspace{1em}
+\subsection{Summary}
+
+Regularization techniques are crucial for ensuring that neural networks generalize beyond their training data.  
+Dropout introduces stochastic sparsity to encourage redundancy, weight decay penalizes overly large parameters, early stopping prevents late-stage overfitting, and data augmentation expands the training manifold.  
+Together, these methods stabilize optimization, improve robustness, and are essential tools for building reliable deep learning models.
+
+\section{Residual Connections and Skip Layers}
+
+Residual connections (or skip layers) are architectural mechanisms that enable deep neural networks to train more effectively by allowing information and gradients to bypass one or more layers. 
+They address optimization difficulties that arise as networks grow deeper, such as vanishing gradients, slow convergence, and the degradation problem—where adding more layers results in higher training error.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/long-skip-connection.jpg}
+    \caption{Residual Connections and Skip Layers}
+    \label{fig:placeholder}
+\end{figure}
+
+\vspace{1em}
+\subsection{Core Idea}
+
+Given an input $x$ and a transformation $F(x)$ (e.g., a sequence of convolutions, linear layers, or attention blocks), a residual connection outputs:
+\[
+y = F(x) + x.
+\]
+This formulation allows the network to learn \textit{residual functions} rather than complete mappings, making identity transformations easy to represent and simplifying gradient flow.
+
+\vspace{1em}
+\subsection{Types of Skip Connections}
+
+\paragraph{Identity Skip.}
+Used when input and output have the same shape:
+\[
+y = F(x) + x.
+\]
+
+\paragraph{Projection Skip.}
+Used to match channel or dimensionality changes:
+\[
+y = F(x) + W_s x.
+\]
+
+\paragraph{Concatenation Skips.}
+Combine features by concatenating:
+\[
+y = \text{Concat}(x, F(x)),
+\]
+used in U-Net and DenseNet to preserve spatial information and promote feature reuse.
+
+\paragraph{Gated Skips.}
+Learn a gate controlling the mixture between input and transformed features:
+\[
+y = g \odot F(x) + (1-g)\odot x.
+\]
+
+\vspace{1em}
+\subsection{Benefits}
+
+\begin{itemize}
+    \item Improve gradient propagation in very deep networks.
+    \item Enable training of models with 100+ layers.
+    \item Reduce sensitivity to initialization.
+    \item Facilitate architectural modularity (e.g., residual blocks).
+    \item Allow identity mappings when deeper transformations are unnecessary.
+\end{itemize}
+
+\vspace{1em}
+\subsection{Use in Modern Architectures}
+
+Residual connections are foundational in:
+\begin{itemize}
+    \item \textbf{ResNets}: convolutional residual blocks with identity or projection skips.
+    \item \textbf{Transformers}: attention and feedforward blocks wrapped with residual paths.
+    \item \textbf{U-Net}: long skip connections linking encoder and decoder stages.
+    \item \textbf{Recurrent networks}: highway networks and gated residual architectures.
+\end{itemize}
+
+\vspace{1em}
+\subsection{Summary}
+
+Skip and residual connections enable stable optimization, deeper architectures, and efficient information flow. 
+They represent a fundamental design principle in modern deep learning, significantly improving trainability and performance across CNNs, Transformers, and many other architectures.
+
+
+\section{Weight Initialization and Parameterization}
+
+Weight initialization and parameterization play a crucial role in the stability, efficiency, and convergence of neural network training.  
+Poor initialization can lead to exploding or vanishing activations, unstable gradients, and severely hinder the optimization process.  
+Proper initialization ensures that signals propagate with the correct scale through the network, enabling deeper models to train effectively and reducing sensitivity to hyperparameters such as learning rate.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/NN_Initialization.png}
+    \caption{Difference between Good and Bad Initialization}
+    \label{fig:placeholder}
+\end{figure}
+
+\vspace{1em}
+\subsection{The Role of Initialization}
+
+Neural networks rely on gradient-based optimization.  
+If activations or gradients grow or shrink exponentially across layers, training becomes unstable.  
+This phenomenon is most evident when:
+\begin{itemize}
+    \item weights are too large (leading to exploding activations or gradients),
+    \item weights are too small (leading to vanishing activations or gradients),
+    \item biases are improperly set (shifting activations excessively),
+    \item parameter distributions are unbalanced across layers.
+\end{itemize}
+
+Appropriate initialization keeps variance stable across forward and backward passes, preserving meaningful gradients.
+
+\vspace{1em}
+\subsection{Key Initialization Principles}
+
+\paragraph{Zero Initialization (Incorrect).}
+Setting all weights to zero forces gradients to be identical across neurons, making them learn the same function.  
+Only biases can be initialized to zero; weights must break symmetry.
+
+\paragraph{Random Initialization.}
+Weights are sampled from predefined distributions (uniform or normal), scaled to ensure proper variance propagation.  
+Biases are typically initialized to zero or small constants.
+
+\vspace{1em}
+\subsection{Xavier/Glorot Initialization}
+
+Designed for networks with symmetric activation functions such as \texttt{tanh} or \texttt{sigmoid}.  
+Xavier initialization maintains variance across layers by scaling weights based on input-output dimensionality:
+\[
+W \sim \mathcal{U}\left(-\sqrt{\frac{6}{n_{\text{in}} + n_{\text{out}}}},\;
+\sqrt{\frac{6}{n_{\text{in}} + n_{\text{out}}}}\right),
+\]
+or with a normal distribution:
+\[
+W \sim \mathcal{N}\left(0,\, \frac{2}{n_{\text{in}} + n_{\text{out}}}\right).
+\]
+
+\paragraph{Purpose.}
+Ensures that activations and gradients maintain roughly the same variance between layers, preventing early saturation of nonlinearities.
+
+\vspace{1em}
+\subsection{Kaiming/He Initialization}
+
+Designed for ReLU-based networks, which discard negative activations.  
+The variance is adjusted accordingly:
+\[
+W \sim \mathcal{N}\left(0,\, \frac{2}{n_{\text{in}}}\right)
+\quad \text{or} \quad
+W \sim \mathcal{U}\left(-\sqrt{\frac{6}{n_{\text{in}}}},\;
+\sqrt{\frac{6}{n_{\text{in}}}}\right).
+\]
+
+\paragraph{Why it works.}
+ReLU activation halves the effective variance by zeroing negative values; He initialization compensates for this, preserving stable forward/backward propagation.
+
+\vspace{1em}
+\subsection{Orthogonal Initialization}
+
+Orthogonal initialization creates a weight matrix $W$ whose rows (or columns) form an orthonormal basis:
+\[
+W^\top W = I.
+\]
+
+\paragraph{Benefits.}
+\begin{itemize}
+    \item Preserves vector norms, improving stability.
+    \item Effective in recurrent networks to counter vanishing/exploding gradients.
+    \item Often used in architectures requiring long-range dependencies (e.g., RNNs, LSTMs).
+\end{itemize}
+
+Orthogonal initialization is especially beneficial when layer dimensions allow square or near-square matrices.
+
+\vspace{1em}
+\subsection{Initialization for Convolutional Layers}
+
+For convolutional kernels, $n_{\text{in}}$ and $n_{\text{out}}$ correspond to:
+\begin{itemize}
+    \item $n_{\text{in}} =$ kernel size $\times$ input channels,
+    \item $n_{\text{out}} =$ kernel size $\times$ output channels.
+\end{itemize}
+
+Thus, Xavier and He initializations extend naturally to CNNs, ensuring consistent variance across spatial dimensions.
+
+\vspace{1em}
+\subsection{Initialization in Transformers and Large Models}
+
+Transformer architectures use initialization schemes tailored to stability during deep stacking:
+\begin{itemize}
+    \item Linear layers often use Xavier uniform or normal initialization.
+    \item Residual branches may scale initial weights by $1/\sqrt{d}$ to stabilize deep residual paths.
+    \item LayerNorm ensures controlled variance throughout the network.
+    \item Large models sometimes use \textit{parameter rescaling} (e.g., GPT-style $1/\sqrt{n_{\text{layers}}}$) to avoid accumulation of residual outputs.
+\end{itemize}
+
+These techniques ensure consistent gradient flow through dozens or hundreds of layers.
+
+\vspace{1em}
+\subsection{Parameterization Techniques}
+
+\paragraph{Weight Tying.}
+Reusing the same parameters across multiple layers or components—for example, tying input and output embeddings in language models—reduces parameter count and improves generalization.
+
+\paragraph{Spectral Normalization.}
+Constrains the Lipschitz constant of layers by normalizing the spectral norm of weight matrices.  
+Common in GANs to stabilize training.
+
+\paragraph{Normalization and Centering.}
+Normalization layers (BatchNorm, LayerNorm) indirectly influence parameterization by normalizing internal activations, allowing weights to focus on learning meaningful transformations rather than scale adjustments.
+
+\vspace{1em}
+\subsection{Summary}
+
+Weight initialization and parameterization determine how well signals propagate through a network during early training.  
+Techniques such as Xavier and He initialization ensure variance stability, orthogonal matrices preserve gradient norms, and architecture-specific strategies (e.g., residual scaling in Transformers) enable very deep models to train reliably.  
+Together, proper initialization and thoughtful parameterization form a foundation for stable, efficient, and scalable neural network optimization.
+
+
+\section{Training and Optimization}
+
+Training and optimization refer to the set of techniques, algorithms, and practices used to adjust the parameters of a neural network so that it minimizes a loss function and generalizes well to unseen data.  
+Modern deep learning models often contain millions—or even billions—of parameters, making efficient optimization essential both for convergence and for practical deployment on resource-constrained hardware such as embedded systems and RISC-V processors.
+
+Optimization is not merely about achieving higher accuracy: it is also about improving efficiency, reducing computational cost, and enabling models to run on low-power devices with strict memory and energy limitations.
+
+\vspace{1em}
+\subsection{Why Model Optimization Matters}
+
+Models that are not optimized suffer from:
+\begin{itemize}
+    \item longer training times,
+    \item slower inference,
+    \item excessive memory consumption,
+    \item reduced portability across hardware platforms,
+    \item increased energy usage,
+    \item poor scalability to larger datasets or architectures.
+\end{itemize}
+
+In real-world deployment scenarios—especially on embedded systems—optimization is crucial.  
+For example, a RISC-V microcontroller might have:
+\begin{itemize}
+    \item only a few hundred kilobytes of RAM,
+    \item limited flash storage,
+    \item no hardware acceleration,
+    \item strict energy budgets (e.g., battery-powered or energy-harvesting devices).
+\end{itemize}
+
+Deploying a standard neural network without optimization would be infeasible under these constraints.  
+As a result, model optimization becomes an essential step in making machine learning practical beyond high-power GPU environments.
+
+\vspace{1em}
+\subsection{Core Components of Training}
+
+Training a neural network involves iterative updates to its parameters to minimize a loss function.  
+At the highest level, the training loop consists of:
+\begin{enumerate}
+    \item Forward pass: compute predictions and loss.
+    \item Backward pass: compute gradients using backpropagation.
+    \item Parameter update: adjust weights using an optimizer (SGD, Adam, etc.).
+\end{enumerate}
+
+The effectiveness of each stage depends heavily on initialization, normalization, learning rate scheduling, and architectural design (e.g., residual connections).
+
+\vspace{1em}
+\subsection{Removing Unused or Non-Connected Layers}
+
+A practical but often overlooked optimization technique involves removing non-connected, inactive, or redundant layers from a network.  
+During experimentation or auto-ML pipelines, models may accumulate:
+\begin{itemize}
+    \item layers that are never used during the forward pass,
+    \item dead branches in multi-path architectures,
+    \item isolated modules left from design iterations,
+    \item residual blocks that collapse to identity mappings.
+\end{itemize}
+
+These “dangling” components waste memory, slow down training, and increase inference cost without contributing to the model’s output.
+
+\paragraph{Why remove them?}
+\begin{itemize}
+    \item \textbf{Memory efficiency:} essential when deploying on embedded systems with limited RAM (e.g., 256 KB on many RISC-V MCUs).
+    \item \textbf{Faster inference:} fewer operations lead to reduced latency.
+    \item \textbf{Energy savings:} crucial in battery-powered or ultra-low-power devices.
+    \item \textbf{Model clarity:} simplified graph structures are easier to debug and analyze.
+\end{itemize}
+
+Pruning non-connected layers is often a first step in a larger optimization pipeline.
+
+\vspace{1em}
+\subsection{Training Stability and Convergence}
+
+Several techniques ensure that the optimization process progresses smoothly:
+\begin{itemize}
+    \item \textbf{Learning rate scheduling:} avoids overshooting or stagnation.
+    \item \textbf{Gradient clipping:} prevents exploding gradients.
+    \item \textbf{Normalization layers:} stabilize activations.
+    \item \textbf{Weight decay:} encourages simpler solutions.
+    \item \textbf{Warm-up phases:} particularly for Transformers.
+\end{itemize}
+
+These mechanisms ensure that gradients remain in a range that supports efficient learning.
+
+\vspace{1em}
+\subsection{Model Compression and Efficiency Techniques}
+
+Optimization extends beyond training, especially when deploying on low-power chips.  
+Common strategies include:
+
+\paragraph{Pruning.}
+Removing weights or entire neurons/channels with little impact on output:
+\[
+W_{ij} = 0 \quad \text{if} \quad |W_{ij}| < \tau.
+\]
+Pruning reduces memory, compute cost, and energy consumption.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/pruning.png}
+    \caption{Pruning}
+    \label{fig:placeholder}
+\end{figure}
+
+
+\paragraph{Quantization.}
+Reducing precision (e.g., from FP32 to INT8 or even INT4):
+\begin{itemize}
+    \item significantly cuts memory usage,
+    \item accelerates inference on simple hardware,
+    \item reduces power consumption.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/quantization.png}
+    \caption{Quantization}
+    \label{fig:placeholder}
+\end{figure}
+
+
+On a RISC-V MCU, quantized integer arithmetic can outperform floating point by an order of magnitude.
+
+\paragraph{Knowledge Distillation.}
+A smaller model (student) learns to mimic a larger one (teacher), providing:
+\begin{itemize}
+    \item high accuracy,
+    \item reduced size,
+    \item faster inference.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/fitnets_knowledge_distill.png}
+    \caption{Knowledge Distillation}
+    \label{fig:placeholder}
+\end{figure}
+
+\paragraph{Operator Fusion.}
+Combining multiple operations into one (e.g., Linear + ReLU), reducing overhead and memory access.
+
+\vspace{1em}
+\subsection{Example: Optimizing a Model for RISC-V Deployment}
+
+Deploying a CNN or MLP on a RISC-V microcontroller with 256 KB of RAM and no floating-point unit illustrates the need for optimization:
+\begin{itemize}
+    \item \textbf{Pruning} removes unnecessary neurons, halving the computational load.
+    \item \textbf{INT8 quantization} reduces model size by 4× and speeds up arithmetic.
+    \item \textbf{Removing unused layers} prevents wasting memory on dead branches.
+    \item \textbf{Fusion of operations} minimizes RAM usage by reducing intermediate tensors.
+\end{itemize}
+
+Without these steps, even small models would exceed memory limits or consume excessive energy—making deployment impossible.
+
+\vspace{1em}
+\subsection{Summary}
+
+Training and optimization encompass all techniques that enable neural networks to learn effectively and run efficiently.  
+Beyond algorithmic improvements such as learning rate scheduling and gradient-based optimization, practical deployment often requires aggressive reduction of model size, removal of unused components, and adaptation to hardware constraints.  
+In environments like RISC-V microcontrollers, these optimization strategies are not optional—they are essential for enabling machine learning applications under strict memory, latency, and energy budgets.
+
+
+\section{Loss Functions (Cross-Entropy, MSE, etc.)}
+
+Loss functions measure how well a model’s predictions match the ground-truth data.  
+They provide the training signal used by optimization algorithms to update parameters through gradient descent.  
+Selecting an appropriate loss function is essential for stable learning, accurate predictions, and proper handling of different tasks such as classification, regression, segmentation, or ranking.
+
+Different loss functions encode different assumptions about the data distribution and influence gradient magnitude, convergence speed, and model behavior.  
+This section provides an overview of the most commonly used losses in deep learning.
+
+\vspace{1em}
+\subsection{Mean Squared Error (MSE)}
+
+The \textit{Mean Squared Error} is widely used for regression tasks.  
+Given predictions $\hat{y}$ and true values $y$, the MSE is defined as:
+\[
+\mathcal{L}_{\text{MSE}} = \frac{1}{N} \sum_{i=1}^N (\hat{y}_i - y_i)^2.
+\]
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/MSE.png}
+    \caption{Mean Squared Error (MSE)}
+    \label{fig:placeholder}
+\end{figure}
+
+
+\paragraph{Intuition.}
+MSE penalizes large errors more heavily than small ones due to the squared term.  
+It corresponds to assuming that the data is corrupted by Gaussian noise.
+
+
+
+\paragraph{Advantages.}
+\begin{itemize}
+    \item Simple and differentiable.
+    \item Smooth gradient landscape.
+    \item Strong performance when noise is Gaussian.
+\end{itemize}
+
+\paragraph{Limitations.}
+\begin{itemize}
+    \item Sensitive to outliers.
+    \item May lead to slow convergence for very large errors.
+\end{itemize}
+
+MSE is commonly used in regression networks, autoencoders, and some generative models.
+
+\vspace{1em}
+\subsection{Mean Absolute Error (MAE)}
+
+The \textit{Mean Absolute Error} is defined as:
+\[
+\mathcal{L}_{\text{MAE}} = \frac{1}{N} \sum_{i=1}^N |\hat{y}_i - y_i|.
+\]
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/MAE.png}
+    \caption{Mean Absolute Error (MAE)}
+    \label{fig:placeholder}
+\end{figure}
+
+
+\paragraph{Properties.}
+\begin{itemize}
+    \item Less sensitive to outliers than MSE.
+    \item Produces gradients of constant magnitude.
+\end{itemize}
+
+MAE corresponds to assuming Laplacian noise and is useful in datasets with heavy-tailed distributions.
+
+\vspace{1em}
+\subsection{Huber Loss}
+
+Huber loss combines the benefits of MSE and MAE:
+\[
+\mathcal{L}_\delta =
+\begin{cases}
+\frac{1}{2} (\hat{y} - y)^2 & |\hat{y} - y| \leq \delta,\\[0.5em]
+\delta \, |\hat{y} - y| - \frac{1}{2}\delta^2 & |\hat{y} - y| > \delta.
+\end{cases}
+\]
+
+It is quadratic for small errors and linear for large errors, stabilizing gradients without being overly sensitive to outliers.
+
+Used in robotics, reinforcement learning, and safety-critical regression tasks.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/Huber_Loss.png}
+    \caption{Huber Loss}
+    \label{fig:placeholder}
+\end{figure}
+
+
+\vspace{1em}
+\subsection{Cross-Entropy Loss}
+
+Cross-entropy is the standard loss for classification tasks.  
+Given a predicted probability distribution $\hat{p}$ and true distribution $p$, the cross-entropy is:
+\[
+\mathcal{L}_{\text{CE}} = -\sum_{k=1}^K p_k \log(\hat{p}_k).
+\]
+
+For one-hot ground truth:
+\[
+\mathcal{L}_{\text{CE}} = -\log(\hat{p}_{y}),
+\]
+where $y$ is the correct class.
+
+\paragraph{Why it works.}
+\begin{itemize}
+    \item Encourages correct class probability to increase.
+    \item Produces strong gradients even when prediction confidence is low.
+    \item Aligns with maximum likelihood estimation under categorical distribution.
+\end{itemize}
+
+Cross-entropy variants include:
+\begin{itemize}
+    \item Binary Cross-Entropy (BCE) for two-class problems,
+    \item Categorical Cross-Entropy for multi-class softmax outputs,
+    \item BCEWithLogits for numerically stable sigmoid-based BCE.
+\end{itemize}
+
+\vspace{1em}
+\subsection{Kullback–Leibler Divergence (KL Divergence)}
+
+KL divergence measures dissimilarity between two probability distributions:
+\[
+D_{\text{KL}}(p \,\|\, q) = \sum_{k} p_k \log\!\left(\frac{p_k}{q_k}\right).
+\]
+
+Used in:
+\begin{itemize}
+    \item Variational Autoencoders (VAEs),
+    \item Knowledge distillation,
+    \item Probabilistic modeling.
+\end{itemize}
+
+KL divergence penalizes incorrect distributions rather than incorrect labels, making it ideal for soft-label training.
+
+\vspace{1em}
+\subsection{Contrastive and Triplet Losses}
+
+Used in metric learning to enforce similarity relationships.
+
+\paragraph{Contrastive loss:}
+\[
+\mathcal{L} = y \, D(x_1, x_2)^2 + (1-y)\max(0, m - D(x_1, x_2))^2.
+\]
+
+\paragraph{Triplet loss:}
+\[
+\mathcal{L} = \max(0,\; D(a,p) - D(a,n) + m).
+\]
+
+These losses train models to map similar inputs near each other and dissimilar ones far apart in embedding space (e.g., face recognition, retrieval systems).
+
+\vspace{1em}
+\subsection{Dice Loss and IoU Loss}
+
+Used primarily in segmentation tasks where pixel-level overlap is critical.
+
+\[
+\mathcal{L}_{\text{Dice}} = 1 - \frac{2|A \cap B|}{|A| + |B|}.
+\]
+
+These losses directly optimize for overlap accuracy, often outperforming cross-entropy in unbalanced segmentation.
+
+\vspace{1em}
+\subsection{Why Choosing the Right Loss Matters}
+
+Different losses affect:
+\begin{itemize}
+    \item gradient structure,
+    \item optimization speed,
+    \item robustness to noise and outliers,
+    \item final performance,
+    \item probabilistic interpretation,
+    \item architectural design (e.g., activation choice in last layer).
+\end{itemize}
+
+For example:
+\begin{itemize}
+    \item Using MSE instead of cross-entropy for classification causes slow and unstable learning.
+    \item Using cross-entropy for regression is mathematically inappropriate.
+    \item Choosing BCE vs. BCEWithLogits determines numerical stability.
+\end{itemize}
+
+The loss should match both the task and the model's output distribution.
+
+\vspace{1em}
+\subsection{Summary}
+
+Loss functions provide the optimization signal that drives learning.  
+MSE, MAE, and Huber loss address regression; cross-entropy handles classification; KL divergence powers probabilistic and generative models; and metric-learning losses structure embedding spaces.  
+Selecting the correct loss is essential for stable training, proper convergence, and ultimately achieving high predictive performance.
+
+
+\section{Optimization Algorithms (SGD, Adam, RMSProp)}
+
+Optimization algorithms govern how neural network parameters are updated to minimize a loss function. 
+They determine the direction and magnitude of each update and thus directly affect convergence speed, stability, and final generalization.
+Below, we present a concise yet rigorous overview of Stochastic Gradient Descent (SGD), RMSProp, and Adam—explaining their mechanics, intuition, and when each is preferable.
+
+\vspace{1em}
+\subsection{From Gradient Descent to Stochastic Updates}
+
+Given parameters $\theta$ and loss $\mathcal{L}(\theta)$, \textit{(full-batch)} gradient descent updates:
+\[
+\theta_{t+1} \;=\; \theta_t \;-\; \eta \,\nabla_{\theta}\mathcal{L}(\theta_t),
+\]
+where $\eta$ is the learning rate. In deep learning, we approximate the gradient using mini-batches $B_t$:
+\[
+g_t \;=\; \nabla_{\theta}\mathcal{L}_{B_t}(\theta_t), \qquad
+\theta_{t+1} \;=\; \theta_t - \eta\, g_t,
+\]
+which yields \textit{Stochastic Gradient Descent (SGD)}—noisier but vastly more efficient on large datasets.
+
+\vspace{1em}
+\subsection{SGD (with Momentum and Nesterov)}
+
+\paragraph{Vanilla SGD.}
+SGD performs small steps along the negative gradient. It is simple, memory-light, and often yields strong generalization, but raw SGD can be slow in narrow valleys and sensitive to learning-rate choice.
+
+\begin{figure} [!h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/sgd.png}
+    \caption{Stochastic Gradient Descent}
+    \label{fig:placeholder}
+\end{figure}
+
+\paragraph{SGD with Momentum.}
+To accelerate along consistent directions and damp oscillations, momentum accumulates an \textit{exponential moving average} of past gradients:
+\[
+v_{t} \;=\; \mu\, v_{t-1} + (1-\mu)\, g_t, \qquad
+\theta_{t+1} \;=\; \theta_t - \eta\, v_t,
+\]
+where $v_t$ is the velocity and $\mu \in [0,1)$ is the momentum coefficient (e.g., $0.9$). 
+Intuition: like pushing a heavy ball down a slope—small, consistent pushes add up to faster progress.
+
+\paragraph{Nesterov Momentum (NAG).}
+Looks ahead before computing the gradient, often yielding smoother convergence:
+\[
+\tilde{\theta}_t \;=\; \theta_t - \eta\, \mu\, v_{t-1}, \qquad
+v_t \;=\; \mu\, v_{t-1} + (1-\mu)\, \nabla_{\theta}\mathcal{L}_{B_t}(\tilde{\theta}_t), \qquad
+\theta_{t+1} \;=\; \theta_t - \eta\, v_t.
+\]
+
+\paragraph{When to implement SGD.}
+\begin{itemize}
+    \item \textbf{Strong baseline \& generalization:} In vision tasks (e.g., CNNs), SGD(+momentum) often reaches better generalization than adaptive methods.
+    \item \textbf{Stable loss landscapes:} When gradients are relatively well-scaled (after normalization), SGD can be very effective.
+    \item \textbf{Low memory footprint:} Minimal optimizer state.
+\end{itemize}
+
+\paragraph{A simple example.}
+Minimize $f(\theta)=\tfrac{1}{2}a\theta^2$ with $a>0$. 
+SGD update: $\theta_{t+1}=\theta_t-\eta a\theta_t=(1-\eta a)\theta_t$. 
+If $\eta$ is too large, $(1-\eta a)$ oscillates or diverges; with momentum, updates dampen oscillations along steep directions (large $a$).
+
+\vspace{1em}
+\subsection{RMSProp}
+
+\paragraph{Idea.}
+RMSProp adapts the learning rate per-parameter by normalizing the gradient with a running average of its squared values—mitigating issues where some parameters consistently have larger gradients.
+
+\paragraph{Update rule.}
+With decay $\beta \in (0,1)$ (e.g., $0.9$) and small $\epsilon$ (e.g., $10^{-8}$):
+\[
+s_t \;=\; \beta\, s_{t-1} + (1-\beta)\, g_t^2, \qquad
+\theta_{t+1} \;=\; \theta_t \;-\; \frac{\eta}{\sqrt{s_t}+\epsilon}\, g_t.
+\]
+Here $s_t$ tracks recent gradient magnitudes; parameters with consistently large gradients get effectively smaller step sizes, and vice versa.
+
+\paragraph{When to implement RMSProp.}
+\begin{itemize}
+    \item \textbf{Non-stationary, noisy problems:} Historically popular for RNNs and reinforcement learning where gradient scales change over time.
+    \item \textbf{Unevenly scaled features:} Works well when different parameters exhibit very different gradient magnitudes.
+    \item \textbf{Fast tuning:} Fewer LR sweeps needed compared to raw SGD.
+\end{itemize}
+
+\paragraph{Toy intuition.}
+If one parameter sees gradients about $10\times$ larger than another, RMSProp will downscale its effective step, helping keep updates balanced without manual per-parameter tuning.
+
+\vspace{1em}
+\subsection{Adam (and AdamW)}
+
+\paragraph{Idea.}
+Adam combines momentum (first-moment averaging) with RMSProp-like scaling (second-moment averaging), plus bias corrections—yielding robust, per-parameter adaptive steps.
+
+\paragraph{Update rule.}
+With $(\beta_1,\beta_2)$ (e.g., $0.9, 0.999$) and $\epsilon$:
+\[
+m_t = \beta_1 m_{t-1} + (1-\beta_1) g_t, \qquad
+v_t = \beta_2 v_{t-1} + (1-\beta_2) g_t^2,
+\]
+Bias-corrected estimates:
+\[
+\hat{m}_t = \frac{m_t}{1-\beta_1^t}, \qquad
+\hat{v}_t = \frac{v_t}{1-\beta_2^t},
+\]
+Parameter update:
+\[
+\theta_{t+1} \;=\; \theta_t \;-\; \frac{\eta}{\sqrt{\hat{v}}_t + \epsilon}\, \hat{m}_t.
+\]
+
+\paragraph{AdamW (decoupled weight decay).}
+Standard Adam mixes $L_2$ regularization into the adaptive scaling, which can behave differently from true weight decay. 
+AdamW decouples the decay:
+\[
+\theta_{t+1} \;=\; (1 - \eta\lambda)\,\theta_t \;-\; \frac{\eta}{\sqrt{\hat{v}}_t + \epsilon}\, \hat{m}_t,
+\]
+where $\lambda$ is the weight decay coefficient—often preferred in modern deep nets (e.g., Transformers).
+
+\paragraph{When to implement Adam/AdamW.}
+\begin{itemize}
+    \item \textbf{Strong default for many tasks:} Fast convergence and ease of tuning.
+    \item \textbf{Sparse or heavy-tailed gradients:} NLP, Transformers, embeddings—adaptive steps help a lot.
+    \item \textbf{Heterogeneous scales:} Different layers/parameters with widely varying gradient magnitudes.
+\end{itemize}
+
+\paragraph{Caveats.}
+\begin{itemize}
+    \item \textbf{Generalization gap:} On some vision tasks, Adam may converge faster but generalize slightly worse than tuned SGD(+momentum).
+    \item \textbf{Tune $\epsilon$ if needed:} Can stabilize training when variances are tiny.
+    \item \textbf{Prefer AdamW:} Decoupled weight decay tends to yield more predictable regularization.
+\end{itemize}
+
+\vspace{1em}
+\subsection{Choosing Between SGD, RMSProp, and Adam}
+
+\begin{itemize}
+    \item \textbf{Use SGD (+Momentum/Nesterov)} when you care about \textit{final generalization} and have reasonably normalized inputs (common in CNN-based vision). 
+    It is memory-efficient and often wins with enough tuning (LR, momentum, schedule).
+    \item \textbf{Use RMSProp} for non-stationary or very noisy objectives (e.g., some RL or RNN settings) and when gradient scales drift significantly over training.
+    \item \textbf{Use Adam/AdamW} as a strong, practical default—particularly in NLP/Transformers, multimodal models, and problems with sparse or uneven gradients—fast to good performance with modest tuning.
+\end{itemize}
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/compare-rms_adam_sgd.png}
+    \caption{Comparison between AdaGrad, RMSProp, SGDNesterov, AdaDelta and Adam}
+    \label{fig:placeholder}
+\end{figure}
+
+\vspace{1em}
+\subsection{Hyperparameter Heuristics and Practical Tips}
+
+\begin{itemize}
+    \item \textbf{Defaults:} 
+    Adam/AdamW: $\eta{=}10^{-3}$, $(\beta_1,\beta_2){=}(0.9,0.999)$, $\epsilon{=}10^{-8}$; 
+    RMSProp: $\eta{=}10^{-3}$, $\beta{=}0.9$, $\epsilon{=}10^{-8}$; 
+    SGD: start $\eta \in [10^{-2}, 10^{-1}]$, momentum $0.9$.
+    \item \textbf{Schedule the LR:} Step decay or cosine annealing often improves all three optimizers.
+    \item \textbf{Normalize/standardize inputs:} Helps SGD; still beneficial for adaptive methods.
+    \item \textbf{Batch size coupling:} Larger batches often need larger learning rates (linear scaling rule).
+    \item \textbf{Regularization:} Prefer decoupled weight decay (AdamW) over $L_2$ in Adam; with SGD use weight decay and/or dropout.
+\end{itemize}
+
+\vspace{1em}
+\subsection{Intuition via a Simple 2D Bowl}
+
+Consider minimizing $f(\theta_1,\theta_2)=\tfrac{1}{2}(a\,\theta_1^2 + b\,\theta_2^2)$ with $a \gg b$ (a narrow, steep valley).
+\begin{itemize}
+    \item \textbf{SGD} zig-zags across the steep axis unless momentum is used; with momentum it accelerates along the shallow axis and damps oscillations along the steep one.
+    \item \textbf{RMSProp} scales steps by recent squared gradients, shrinking steps along the steep axis (large gradients) and enlarging along the shallow axis—quickly balancing progress.
+    \item \textbf{Adam} couples momentum (directional memory) with RMSProp-like scaling, often moving decisively toward the minimum with stable steps; AdamW improves regularization on top.
+\end{itemize}
+
+\vspace{1em}
+\subsection{Summary}
+
+SGD, RMSProp, and Adam represent a progression from simple, global step sizes to adaptive, per-parameter updates with momentum. 
+\textbf{SGD(+momentum)} remains a gold standard for strong generalization (especially in vision). 
+\textbf{RMSProp} addresses non-stationary, uneven gradient scales. 
+\textbf{Adam/AdamW} is a robust default for many modern architectures, particularly where gradients are sparse or heterogeneous.
+Selecting among them—and combining with a sound learning-rate schedule—often determines whether training is merely adequate or state-of-the-art.
+
+
+\section{Learning Rate Scheduling}
+
+The \textit{learning rate} is one of the most fundamental hyperparameters in the optimization of neural networks.  
+It determines the size of the steps taken by the optimizer when updating the model’s parameters in response to the computed gradients.  
+In simple terms, the learning rate controls how quickly or cautiously a model learns from the training data.
+
+\vspace{0.5em}
+At each iteration of gradient-based optimization, the model parameters $\theta$ are updated according to:
+\[
+\theta_{t+1} = \theta_t - \eta \, \nabla_{\theta_t}\mathcal{L}(\theta_t),
+\]
+where $\mathcal{L}(\theta_t)$ is the loss function, $\nabla_{\theta_t}\mathcal{L}$ is the gradient of the loss with respect to the parameters, and $\eta$ is the learning rate.  
+A larger $\eta$ means taking bigger steps in the direction that reduces the loss, while a smaller $\eta$ means taking smaller, more cautious steps.
+
+\vspace{0.5em}
+The learning rate directly affects the trajectory of the optimization process through the loss landscape:
+\begin{itemize}
+    \item If the learning rate is \textbf{too high}, the optimization steps overshoot the minima, leading to oscillations or even divergence of the loss.
+    \item If it is \textbf{too low}, progress becomes extremely slow, and the model might get trapped in shallow minima or plateaus.
+\end{itemize}
+
+Thus, selecting an appropriate learning rate is a critical factor in achieving efficient and stable convergence.  
+However, a single static value rarely performs optimally throughout training—different phases of learning benefit from different update magnitudes.  
+This observation motivates the use of \textit{learning rate scheduling}.
+
+\vspace{1em}
+\subsection{Theoretical Overview of Learning Rate Scheduling}
+
+\textit{Learning rate scheduling} refers to the process of dynamically adjusting the learning rate $\eta_t$ as training progresses.  
+Early in training, a relatively large learning rate helps the model explore the loss surface and escape poor local minima.  
+Later in training, a smaller learning rate allows for more precise fine-tuning as the optimizer approaches convergence.
+
+\vspace{0.5em}
+Mathematically, the update rule with a time-dependent learning rate becomes:
+\[
+\theta_{t+1} = \theta_t - \eta_t \, \nabla_{\theta_t}\mathcal{L}(\theta_t),
+\]
+where $\eta_t$ evolves according to a scheduling policy.  
+Different scheduling strategies define how $\eta_t$ changes over epochs or iterations.
+
+Common scheduling methods include:
+\begin{itemize}
+    \item \textbf{Step Decay:} Reduces the learning rate by a constant factor after a fixed number of epochs:
+    \[
+    \eta_t = \eta_0 \cdot \gamma^{\lfloor t / T \rfloor}.
+    \]
+    \item \textbf{Exponential Decay:} Decreases the learning rate continuously as
+    $\eta_t = \eta_0 \cdot e^{-\lambda t}$, providing a smooth decay.
+    \item \textbf{Cosine Annealing:} Gradually lowers the learning rate following a cosine curve:
+    \[
+    \eta_t = \eta_{\min} + \frac{1}{2}(\eta_{\max} - \eta_{\min})\left(1 + \cos\left(\frac{t}{T_{\max}}\pi\right)\right).
+    \]
+    \item \textbf{Cyclical Learning Rate (CLR):} Periodically increases and decreases $\eta_t$ between lower and upper bounds to escape local minima.
+    \item \textbf{One-Cycle Policy:} Increases the learning rate rapidly at the start of training, then gradually reduces it below the initial value, promoting fast convergence and strong generalization.
+\end{itemize}
+
+A \textit{warm-up} phase is often included, during which the learning rate starts small and increases linearly or exponentially for the first few epochs, stabilizing early training—especially in deep architectures such as Transformers.
+
+\vspace{1em}
+\subsection{Influence of the Learning Rate on Model Training}
+
+The learning rate profoundly influences how a neural network learns.  
+Its value and evolution determine whether training will be stable, efficient, or divergent.
+
+\begin{itemize}
+    \item \textbf{High Learning Rate:}  
+    When $\eta$ is too large, parameter updates overshoot the optimal region, causing oscillations or divergence.  
+    The model may fail to minimize the loss and instead fluctuate around high-error regions.  
+    While a large learning rate accelerates initial progress, it often prevents fine convergence.
+    
+    \item \textbf{Low Learning Rate:}  
+    If $\eta$ is too small, updates become negligible, and training proceeds very slowly.  
+    The model may converge prematurely to suboptimal minima or fail to adapt effectively, leading to underfitting.
+    
+    \item \textbf{Dynamic Scheduling:}  
+    A learning rate schedule allows a controlled transition—from fast exploration to fine-grained optimization.  
+    Larger learning rates early on encourage broad exploration of the loss surface, while progressively smaller rates near convergence allow the model to refine weights precisely.  
+    This results in both faster training and improved generalization.
+\end{itemize}
+
+\begin{figure} [!h]
+    \centering
+    \includegraphics[width=0.6\linewidth]{img/lr_explained.png}
+    \caption{Learning Rate explained}
+    \label{fig:placeholder}
+\end{figure}
+
+The relationship between learning rate and other hyperparameters—such as batch size, momentum, and weight decay—is also crucial.  
+For instance, larger batch sizes often require proportionally higher learning rates to maintain gradient stability, a phenomenon described by the \textit{linear scaling rule}.
+
+\vspace{1em}
+\subsection{Practical Considerations}
+
+In practice, identifying an optimal learning rate or schedule typically involves empirical experimentation.  
+A common approach is the \textit{learning rate finder}, which gradually increases the learning rate during a brief training run and records the loss.  
+Plotting loss against learning rate reveals a region where the loss decreases most rapidly—indicating an effective initial value.
+
+\vspace{0.5em}
+Deep learning frameworks such as PyTorch and TensorFlow provide built-in tools for scheduling, including:
+\texttt{StepLR}, \texttt{ExponentialLR}, \texttt{ReduceLROnPlateau}, and \texttt{CosineAnnealingLR}.  
+These utilities automate the adjustment of $\eta_t$ during training, making learning rate scheduling a standard part of modern optimization pipelines.
+
+\vspace{0.5em}
+In summary, the learning rate defines the pace of learning in neural network training—too high leads to instability, too low to stagnation.  
+Learning rate scheduling refines this process by allowing the model to adaptively balance exploration and convergence, resulting in faster, more stable, and more accurate learning.
+
+
+\section{Early Stopping and Regularization During Training}
+
+Training deep neural networks is an iterative optimization process that requires a delicate balance between learning the underlying patterns of the data and memorizing its noise. While optimization algorithms aim to minimize the training loss indefinitely, the ultimate goal of machine learning is generalization to unseen data.
+
+\textbf{Early Stopping} is a regularization technique that addresses this discrepancy by monitoring the model's performance on a validation set and terminating training when generalization performance begins to degrade. Unlike structural regularization methods (like Dropout) or penalty terms (like Weight Decay), early stopping operates purely at the procedural level of the training loop.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{img/early_stop.png}
+    \caption{Early Stopping Concept}
+    \label{fig:early_stopping}
+\end{figure}
+
+
+\subsection{The Dynamics of Overfitting}
+As training progresses, a neural network typically goes through two distinct phases:
+\begin{enumerate}
+    \item \textbf{Learning Phase:} Initially, both training loss and validation loss decrease. The model learns general features (e.g., edges, shapes, syntax) that are applicable to both the training and validation sets. The parameters move from their initial random state towards a region of low error.
+    \item \textbf{Overfitting Phase:} After a certain number of epochs, the training loss continues to decrease, often approaching zero. However, the validation loss reaches a minimum (the inflection point) and starts to rise. At this stage, the model begins to co-adapt to the specific noise or idiosyncrasies of the training data, losing its ability to generalize.
+\end{enumerate}
+
+Early stopping aims to identify this specific inflection point $t^*$ where the validation risk is minimized:
+$$ t^* = \operatorname*{argmin}_t \mathcal{L}_{val}(\theta_t). $$
+
+\subsection{Implementation Strategy: Patience and Delta}
+Because optimization with Stochastic Gradient Descent (SGD) is noisy, the validation loss rarely follows a smooth, monotonic curve. It often fluctuates due to batch sampling variance. Stopping immediately at the first sign of increased loss would effectively halt training prematurely.
+
+To handle this stochasticity, robust implementations introduce two key hyperparameters:
+\begin{itemize}
+    \item \textbf{Patience ($p$):} This defines a "tolerance window." It is the number of epochs the training is allowed to continue without observing an improvement in the validation metric. For example, with $p=10$, the model has 10 epochs to beat the previous best score before training is terminated. This allows the optimizer to potentially escape local plateaus.
+    \item \textbf{Minimum Delta ($\delta$):} This threshold defines what counts as a "significant" improvement. A decrease in loss smaller than $\delta$ is considered noise and does not reset the patience counter.
+\end{itemize}
+
+\textbf{Checkpointing (Best vs. Last Model):}
+Crucially, when early stopping triggers, the model's parameters at the final epoch ($\theta_{final}$) are often suboptimal (since the loss has likely risen). Therefore, a proper implementation must perform \textit{checkpointing}: saving the weights $\theta_{best}$ every time the validation metric improves, and reloading these weights when training stops.
+
+\subsection{Early Stopping as Implicit Regularization}
+Theoretical analysis suggests that early stopping acts as a regularizer similar to $L_2$ Weight Decay.
+When weights are initialized with small values (centered around zero), they grow in magnitude as training proceeds to minimize the loss. By stopping training at time $t$, we effectively restrict the optimization to a volume of the parameter space reachable within $t$ steps.
+
+This restriction prevents the weights from growing excessively large, which is often a symptom of overfitting (where large weights create sharp decision boundaries to fit outliers). Thus, the number of training epochs effectively becomes a hyperparameter that controls model complexity.
+
+\subsection{Interaction with Other Techniques}
+Early stopping is rarely used in isolation. It functions best when combined with:
+\begin{itemize}
+    \item \textbf{Learning Rate Scheduling:} Often, when validation loss plateaus, reducing the learning rate (e.g., \texttt{ReduceLROnPlateau}) can yield further improvements before early stopping is necessary.
+    \item \textbf{Dropout and Weight Decay:} These techniques slow down the onset of overfitting, allowing the model to train for more epochs and learn more complex features before early stopping is triggered.
+\end{itemize}
+
+\subsection{Summary}
+Early stopping provides a computationally efficient and intuitive safeguard against overfitting. By utilizing a separate validation set to monitor generalization error, it allows practitioners to train models without knowing the optimal number of epochs in advance. It ensures that the final model represents the best balance between underfitting and overfitting, retrieving the optimal parameter configuration $\theta_{best}$ rather than the final, potentially overfitted state.
+
+\section{Gradient Clipping and Stability Techniques}
+
+Training deep neural networks, particularly Recurrent Neural Networks (RNNs) or very deep Transformers, can be destabilized by the \textbf{exploding gradient problem}. This phenomenon occurs when large error gradients accumulate during backpropagation, resulting in very large updates to the model weights.
+
+These massive updates can cause the numerical values of the parameters to overflow (NaNs) or shoot into sub-optimal regions of the loss landscape from which the model cannot recover. \textbf{Gradient Clipping} is the standard technique used to counteract this instability by limiting the magnitude of the gradients before the optimization step.
+
+\subsection{The Exploding Gradient Problem}
+In deep architectures, the gradient is computed via the chain rule, involving the repeated multiplication of matrices (in feedforward nets) or the same matrix (in RNNs).
+If the spectral norm (largest singular value) of the weight matrices is greater than 1, the gradients can grow exponentially with the depth of the network (or the length of the sequence).
+
+Mathematically, if the gradient vector $g$ grows uncontrollably ($||g|| \to \infty$), the parameter update $\Delta \theta = -\eta \cdot g$ becomes too large, destroying the learned representations.
+
+\subsection{Gradient Clipping Strategies}
+There are two primary methods to clip gradients: clipping by value and clipping by norm.
+
+\subsubsection{Clipping by Value (Element-wise)}
+This method clips each element of the gradient vector independently to a predefined range $[-\delta, \delta]$.
+Given a gradient vector $g \in \mathbb{R}^d$:
+$$ g_i \leftarrow \min(\max(g_i, -\delta), \delta) $$
+for each element $i$.
+
+\textbf{Pros:} Simple to implement.\\
+\textbf{Cons:} It changes the direction of the gradient vector. If one component is clipped and another is not, the resulting vector points in a slightly different direction than the true steepest descent, potentially slowing down convergence.
+
+\subsubsection{Clipping by Norm (Global Norm)}
+This is the preferred method in modern deep learning (e.g., used in Transformers and LSTMs). It rescales the entire gradient vector $g$ so that its $L_2$ norm does not exceed a threshold $C$.
+
+The operation is defined as:
+$$ g \leftarrow g \cdot \frac{C}{\max(C, ||g||_2)} $$
+where $||g||_2$ is the Euclidean norm of the vector.
+
+\textbf{Mechanism:}
+\begin{itemize}
+    \item If $||g||_2 \le C$, the scaling factor is 1, and the gradient is unchanged.
+    \item If $||g||_2 > C$, the gradient is scaled down to have a norm of exactly $C$.
+\end{itemize}
+
+\textbf{Pros:} \textbf{Preserves Direction}. Unlike value clipping, this rescaling operation ensures that the gradient points in the exact same direction as the original error signal, only its magnitude is reduced. This is crucial for optimization stability.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{img/gradient_clipping.png}
+    \caption{Visual comparison: Clipping by Value (changes direction) vs. Clipping by Norm (preserves direction).}
+    \label{fig:grad_clipping}
+\end{figure}
+
+\subsection{Practical Implementation and Use Cases}
+\textbf{When to use:}
+\begin{itemize}
+    \item \textbf{RNNs / LSTMs:} Essential. Without clipping, training on long sequences (Backpropagation Through Time) often fails.
+    \item \textbf{Transformers:} Standard practice (e.g., global norm clip = 1.0) to stabilize the pre-training of large language models.
+    \item \textbf{High Learning Rates:} Clipping allows the use of larger learning rates by putting a safety cap on the worst-case update size.
+\end{itemize}
+
+\textbf{Choosing the threshold $C$:}
+A common heuristic is to look at the average gradient norm over an epoch and set $C$ to a value slightly higher (e.g., 5.0 or 1.0). If $C$ is too small, it may suppress useful signals; if too large, it fails to prevent explosions.
+
+\subsection{Summary}
+Gradient Clipping acts as a "safety valve" for the optimization process. By enforcing a maximum limit on the gradient magnitudes—preferably via Norm Clipping to preserve direction—it ensures that parameter updates remain within a reasonable range. This technique effectively solves the exploding gradient problem, enabling the successful training of deep and recurrent architectures that would otherwise be numerically unstable.
+
+
+\section{Transfer Learning and Fine-Tuning}
+
+Transfer Learning is a methodology that leverages the knowledge gained from solving one problem and applies it to a different but related problem. Instead of training a deep neural network from scratch (tabula rasa)---which requires massive datasets and significant computational resources---transfer learning initializes the network with weights learned from a large-scale source task (e.g., ImageNet classification).
+
+This approach relies on the hierarchical nature of deep learning: early layers learn generic, low-level features (edges, textures, colors), while deeper layers learn high-level, task-specific semantic representations.
+
+
+
+\subsection{Core Paradigms}
+There are two primary strategies for adapting a pre-trained model to a target task:
+
+\subsubsection{Feature Extraction (Freezing)}
+In this approach, the pre-trained convolutional base (or encoder) is treated as a fixed feature extractor.
+\begin{itemize}
+    \item \textbf{Mechanism:} The weights of the backbone layers are "frozen" (i.e., excluded from gradient updates). Only the final classification head (fully connected layers) is initialized randomly and trained on the target dataset.
+    \item \textbf{Use Case:} Ideal when the target dataset is small and similar to the source dataset, or when computational resources are strictly limited.
+\end{itemize}
+
+\subsubsection{Fine-Tuning}
+Fine-tuning involves unfreezing some or all of the layers of the pre-trained base and jointly training them with the new classification head.
+\begin{itemize}
+    \item \textbf{Mechanism:} Gradients are backpropagated through the entire network (or specific blocks). This allows the pre-trained features to adapt slightly to the nuances of the new data.
+    \item \textbf{Use Case:} Preferred when the target dataset is large, or when the domain differs significantly from the source, requiring the adaptation of deeper representations.
+\end{itemize}
+
+\begin{figure}[h]
+    \centering
+    % Placeholder for image
+    \includegraphics[width=0.9\textwidth]{img/fine_tuning_vs_feature_extr.png}
+    \caption{Comparison: Feature Extraction (Frozen Backbone) vs. Fine-Tuning (Trainable Backbone).}
+    \label{fig:transfer_methods}
+\end{figure}
+
+\subsection{Strategic Guidelines}
+The choice between freezing and fine-tuning depends on two factors: the size of the target dataset and its similarity to the source dataset.
+
+\begin{enumerate}
+    \item \textbf{Small Data, Similar Domain:}
+    \textit{Strategy: Freeze Backbone.} Fine-tuning runs a high risk of overfitting. The pre-trained features are already relevant; training a linear classifier on top is sufficient.
+
+    \item \textbf{Large Data, Similar Domain:}
+    \textit{Strategy: Fine-Tune.} With sufficient data, overfitting is less of a concern. Unfreezing the whole network allows the model to maximize performance by specializing features.
+
+    \item \textbf{Small Data, Different Domain:}
+    \textit{Strategy: Freeze Early Layers, Train Later Layers.} Early layers detect generic features (edges) useful everywhere. Later layers detect specific objects (e.g., dog breeds) not useful for the target (e.g., medical cells). Train only the later blocks.
+
+    \item \textbf{Large Data, Different Domain:}
+    \textit{Strategy: Train from Scratch or Full Fine-Tuning.} Since the domains are distinct, pre-trained high-level features may be misleading. However, initializing with pre-trained weights usually converges faster than random initialization.
+\end{enumerate}
+
+\subsection{Implementation Techniques}
+
+\subsubsection{Differential Learning Rates (Discriminative Fine-Tuning)}
+When fine-tuning, it is often suboptimal to use the same learning rate for all layers. The early layers contain robust, general knowledge that should be preserved, while the new head needs to learn rapidly.
+\begin{itemize}
+    \item \textbf{Technique:} Apply a lower learning rate $\eta_{base}$ to the backbone (e.g., $10^{-5}$) and a higher learning rate $\eta_{head}$ to the classifier (e.g., $10^{-3}$).
+    \item \textbf{Formula:} $\eta^l = \eta_{base} \cdot \xi^l$, where $\xi$ is a decay factor across layers $l$.
+\end{itemize}
+
+\subsubsection{Gradual Unfreezing}
+To prevent "catastrophic forgetting"—where massive gradient updates from the randomly initialized head destroy the pre-trained weights in the backbone—layers can be unfrozen sequentially.
+\begin{enumerate}
+    \item Train only the head for a few epochs.
+    \item Unfreeze the last block of the backbone and train with a reduced learning rate.
+    \item Gradually unfreeze earlier blocks until the whole network is trainable.
+\end{enumerate}
+
+\subsection{Summary}
+Transfer learning is the catalyst that democratized deep learning, allowing state-of-the-art performance on specific tasks with limited data. By understanding the trade-off between freezing (preserving generic knowledge) and fine-tuning (specializing for the target), practitioners can drastically reduce training time and improve generalization.
+
+\section{Implementation Patterns and Practical Considerations}
+
+Translating mathematical models into working code requires more than just transcribing equations. It involves adopting robust software engineering patterns that ensure reproducibility, scalability, and ease of debugging. A well-implemented neural network codebase abstracts hardware specifics, handles data efficiently, and guards against numerical instability.
+
+\subsection{Reproducibility and Seeding}
+Deep learning frameworks rely heavily on pseudo-random number generators (PRNGs) for weight initialization, data shuffling, and dropout masks. To ensure that experiments are reproducible—meaning a re-run produces the exact same results—one must fix the seeds across all libraries.
+
+A robust seeding pattern involves setting seeds for:
+\begin{enumerate}
+    \item The core language random module (e.g., Python \texttt{random}).
+    \item The numerical library (e.g., \texttt{numpy}).
+    \item The deep learning framework (e.g., \texttt{torch.manual\_seed}).
+    \item The hardware backend (e.g., \texttt{torch.cuda.manual\_seed\_all}).
+\end{enumerate}
+
+Additionally, ensuring deterministic algorithms on GPUs (e.g., setting \texttt{cudnn.deterministic = True}) avoids nondeterministic behavior in convolution operations, though often at a slight performance cost.
+
+\subsection{Device-Agnostic Code Patterns}
+Modern deep learning code must run seamlessly across different hardware accelerators (NVIDIA GPUs, Apple MPS, TPUs, or CPUs) without requiring code changes. Hardcoding \texttt{.cuda()} is a deprecated anti-pattern.
+
+\textbf{The Recommended Pattern:}
+Define a global device object early in the script:
+\begin{verbatim}
+device = torch.device(
+    "cuda" if torch.cuda.is_available() else
+    "mps" if torch.backends.mps.is_available() else
+    "cpu"
+)
+\end{verbatim}
+All models and tensors should be moved to this device using the \texttt{.to(device)} method. This ensures portability and simplifies deployment on diverse infrastructure.
+
+\subsection{Numerical Stability Patterns}
+Floating-point arithmetic is not infinite precision. Deep networks often deal with very small numbers (probabilities) or very large ones (unnormalized logits), leading to underflow or overflow.
+
+\textbf{Log-Sum-Exp Trick:}
+When computing the softmax of a vector $x$, calculating $e^{x_i}$ can overflow if $x_i$ is large. The stable implementation uses the identity:
+$$ \log \left( \sum e^{x_i} \right) = \max(x) + \log \left( \sum e^{x_i - \max(x)} \right) $$
+Subtracting the maximum value ensures all exponents are $\le 0$, guaranteeing stability. Frameworks handle this automatically in functions like \texttt{CrossEntropyLoss} (which combines \texttt{LogSoftmax} and \texttt{NLLLoss}), but manual implementations must be careful.
+
+\textbf{Epsilon for Division:}
+When normalizing (e.g., in BatchNorm or attention), always add a small $\epsilon$ (e.g., $10^{-8}$) to the denominator to prevent division by zero:
+$$ \hat{x} = \frac{x - \mu}{\sqrt{\sigma^2 + \epsilon}} $$
+
+\subsection{Gradient Accumulation}
+Training large models on hardware with limited VRAM (e.g., consumer GPUs) often prevents the use of the desired batch size. Gradient accumulation decouples the \textit{logical batch size} from the \textit{physical batch size}.
+
+\textbf{Mechanism:}
+Instead of updating weights after every forward-backward pass, gradients are accumulated over $N$ mini-batches:
+\begin{enumerate}
+    \item Perform forward pass and loss computation.
+    \item Scale loss by $1/N$.
+    \item Perform backward pass (\texttt{loss.backward()}), which accumulates gradients into \texttt{.grad}.
+    \item Repeat $N$ times.
+    \item Perform optimizer step (\texttt{optimizer.step()}) and zero gradients (\texttt{optimizer.zero\_grad()}).
+\end{enumerate}
+This simulates a batch size of $N \times \text{physical\_batch\_size}$ with constant memory footprint.
+
+\begin{figure}[h]
+    \centering
+    % Placeholder for image
+    \includegraphics[width=0.8\textwidth]{img/gradient_accumulation.png}
+    \caption{Gradient Accumulation: Aggregating gradients over multiple steps to simulate a larger batch.}
+    \label{fig:grad_accum}
+\end{figure}
+
+\subsection{Summary}
+Implementation patterns distinguish research scripts from production-grade libraries. By enforcing strict seeding for reproducibility, abstracting hardware logic, and proactively handling numerical instability, practitioners create codebases that are robust, portable, and easier to debug. These "silent" engineering decisions are often as critical to model performance as the architecture itself.
+
+
+
+\section{Model Definition in PyTorch (Modules, Forward Pass, Parameters)}
+\section{Training Loops and Evaluation Pipelines}
+\section{Saving, Loading, and Deployment of Models}
+\section{Performance Profiling and Debugging}
+
+\chapter{Metrics \&\ how to read it}
+
+\section{Accuracy \& Loss}
+
+During the training of a machine learning model, \textit{accuracy} and \textit{loss} are two key metrics used to assess how well the model is learning and generalizing. 
+Together, they provide complementary insights: accuracy measures the proportion of correct predictions, while loss quantifies the numerical difference between the predicted and true outputs. 
+Monitoring these metrics over time allows practitioners to diagnose issues such as underfitting, overfitting, or poor optimization behavior.
+
+\vspace{0.5em}
+Accuracy and loss are typically visualized as curves across training epochs. 
+The shape and trends of these curves reveal how the model’s performance evolves during training and validation, helping to identify whether the model is improving, stagnating, or degrading.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\linewidth]{img/Loss_LC.png}
+    \quad % oppure \hspace{1em} per regolare la distanza
+    \includegraphics[width=0.4\linewidth]{img/Acc_LC.png}
+    \caption{Learning Curve for Loss and Accuracy}
+    \label{fig:placeholder}
+\end{figure}
+
+
+\vspace{1em}
+
+\subsection{Accuracy}
+
+Accuracy measures the fraction of correctly predicted samples relative to the total number of samples. 
+For a classification task, it is formally defined as:
+\[
+\text{Accuracy} = \frac{\text{Number of Correct Predictions}}{\text{Total Number of Predictions}}.
+\]
+A high accuracy indicates that the model correctly classifies most examples in the dataset. 
+However, accuracy alone can be misleading—especially in imbalanced datasets where some classes are more frequent than others. 
+In such cases, complementary metrics such as precision, recall, and F1-score provide a more balanced evaluation.
+
+\vspace{0.5em}
+The \textit{accuracy curve} plots model accuracy over successive training epochs for both training and validation sets. 
+A steadily increasing training accuracy accompanied by stable or improving validation accuracy indicates effective learning. 
+Conversely, if validation accuracy stagnates or declines while training accuracy continues to rise, the model may be overfitting.
+
+\vspace{1em}
+\subsection{Loss}
+
+Loss quantifies how far the model’s predictions are from the true target values. 
+It is computed using a \textit{loss function} (or \textit{cost function}) that assigns a penalty to incorrect or inaccurate predictions. 
+The goal of training is to minimize this loss function through iterative optimization, typically via gradient descent or one of its variants.
+
+\vspace{0.5em}
+For example, in regression tasks, the most common loss function is the \textit{Mean Squared Error (MSE)}, defined as:
+\[
+\text{MSE} = \frac{1}{N}\sum_{i=1}^{N}(y_i - \hat{y}_i)^2,
+\]
+where $y_i$ represents the true value and $\hat{y}_i$ the predicted output.  
+In classification tasks, loss functions such as \textit{Cross-Entropy Loss} or \textit{Negative Log-Likelihood} are widely used to measure the divergence between the predicted probability distribution and the true labels.
+
+\vspace{0.5em}
+The \textit{loss curve} typically decreases as training progresses, indicating that the model is minimizing its prediction errors. 
+However, a widening gap between training and validation loss often signals overfitting, whereas consistently high loss on both sets may indicate underfitting or inappropriate model complexity.
+
+\vspace{0.5em}
+In summary, accuracy and loss are fundamental diagnostic tools in machine learning. 
+Their joint analysis provides valuable feedback on model convergence, learning efficiency, and generalization performance, guiding practitioners in fine-tuning architectures and optimization strategies.
+
+\section{Precision \& Recall}
+
+While accuracy provides a general indication of model performance, it can be misleading in situations where data are imbalanced—when certain classes occur much more frequently than others. 
+In such cases, metrics like \textit{precision} and \textit{recall} offer a more informative and nuanced evaluation of classification models, especially in binary or multi-class settings where the cost of false positives and false negatives differs.
+
+\vspace{0.5em}
+Precision and recall are often analyzed together to assess how well a model identifies positive instances without introducing excessive misclassifications. 
+Their trade-off is frequently visualized through a \textit{precision–recall curve}, which illustrates the relationship between these two quantities as the decision threshold varies.
+
+\begin{figure} [!h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{img/PR_curve.png}
+    \caption{Precision Recall Curve}
+    \label{fig:placeholder}
+\end{figure}
+
+\vspace{1em}
+\subsection{Precision}
+
+Precision measures the proportion of positive predictions that are actually correct. 
+It answers the question: \textit{Of all instances predicted as positive, how many are truly positive?} 
+Mathematically, precision is defined as:
+\[
+\text{Precision} = \frac{\text{True Positives (TP)}}{\text{True Positives (TP)} + \text{False Positives (FP)}}.
+\]
+High precision indicates that the model makes few false positive errors—it is “cautious” in labeling samples as positive.  
+However, a model with very high precision may miss many actual positives if it becomes too conservative, leading to low recall.
+
+\vspace{0.5em}
+In the precision–recall curve, precision typically decreases as recall increases. 
+This occurs because, as the model becomes more inclusive (labeling more instances as positive), it also tends to introduce more false positives.
+
+\vspace{1em}
+\subsection{Recall}
+
+Recall, also known as \textit{sensitivity} or \textit{true positive rate}, measures the proportion of actual positives that the model successfully identifies. 
+It answers the question: \textit{Of all true positive instances, how many did the model correctly detect?} 
+Formally, recall is defined as:
+\[
+\text{Recall} = \frac{\text{True Positives (TP)}}{\text{True Positives (TP)} + \text{False Negatives (FN)}}.
+\]
+A high recall value indicates that the model captures most of the true positives but may include more false positives.  
+In many real-world applications—such as medical diagnosis or fraud detection—high recall is critical, as missing a positive case can be costly or dangerous.
+
+\vspace{1em}
+\subsection{Confusion Matrix}
+
+The \textit{confusion matrix} is a fundamental tool for evaluating the performance of classification models. 
+It provides a detailed breakdown of the model’s predictions compared to the actual ground truth labels, allowing practitioners to understand not only how many predictions were correct, but also the types of errors the model made.
+
+\vspace{0.5em}
+In a binary classification setting, the confusion matrix is a $2 \times 2$ table that summarizes the counts of true and false predictions for both classes:
+
+\[
+\begin{array}{c|cc}
+ & \textbf{Predicted Positive} & \textbf{Predicted Negative} \\
+\hline
+\textbf{Actual Positive} & \text{True Positive (TP)} & \text{False Negative (FN)} \\
+\textbf{Actual Negative} & \text{False Positive (FP)} & \text{True Negative (TN)} \\
+\end{array}
+\]
+
+Here:
+\begin{itemize}
+    \item \textbf{True Positives (TP):} Instances correctly classified as belonging to the positive class.
+    \item \textbf{True Negatives (TN):} Instances correctly classified as belonging to the negative class.
+    \item \textbf{False Positives (FP):} Instances incorrectly classified as positive (Type I error).
+    \item \textbf{False Negatives (FN):} Instances incorrectly classified as negative (Type II error).
+\end{itemize}
+
+\vspace{0.5em}
+From the confusion matrix, a variety of performance metrics can be derived, including:
+\[
+\text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}, \qquad
+\text{Precision} = \frac{TP}{TP + FP}, \qquad
+\text{Recall} = \frac{TP}{TP + FN}.
+\]
+These relationships make the confusion matrix an essential foundation for most evaluation metrics in classification problems.
+
+\vspace{0.5em}
+For \textit{multi-class classification}, the confusion matrix extends to an $N \times N$ table, where $N$ is the number of classes. 
+Each row represents the actual class, and each column represents the predicted class. 
+Diagonal entries correspond to correct predictions, while off-diagonal entries indicate misclassifications between specific classes. 
+Visualizing the confusion matrix as a heatmap can help reveal systematic biases—for instance, when the model consistently confuses certain categories due to similarity in features or insufficient training examples.
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/conf_matrix.png}
+    \caption{Confusion Matrix for fashion MNIST dataset}
+    \label{fig:placeholder}
+\end{figure}
+
+\vspace{0.5em}
+In practice, confusion matrices are often used alongside precision–recall and ROC curves to provide a comprehensive understanding of a model’s behavior. 
+They allow practitioners to identify which types of errors are most common, assess the balance of performance across classes, and guide future steps in data collection, model design, or hyperparameter tuning.
+
+\vspace{0.5em}
+In summary, the confusion matrix is not merely a diagnostic tool but a window into the decision-making process of a classifier. 
+It enables a granular analysis of model performance, transforming raw prediction counts into actionable insights for model refinement and validation.
+
+
+\vspace{1em}
+\subsection{Precision–Recall Trade-off and Curve Interpretation}
+
+Precision and recall are inherently linked: improving one often comes at the expense of the other.  
+By adjusting the model’s decision threshold, one can balance the two metrics depending on the specific requirements of the application.  
+The \textit{precision–recall curve} plots recall on the x-axis and precision on the y-axis, summarizing performance across all possible thresholds.
+
+\vspace{0.5em}
+A model that perfectly separates classes would achieve a precision of 1.0 across all recall levels, resulting in a flat line at the top of the plot.  
+In contrast, a random classifier produces a curve close to the baseline, indicating that precision falls rapidly as recall increases.  
+The area under the precision–recall curve (AUC–PR) provides a scalar summary of overall performance, especially useful when comparing different models on imbalanced datasets.
+
+\vspace{0.5em}
+In summary, precision and recall offer complementary perspectives on model performance.  
+Precision emphasizes correctness among positive predictions, while recall emphasizes completeness in capturing all positive instances.  
+Together, they form the foundation for the \textit{F1-score}, a harmonic mean that provides a single, balanced measure of both precision and recall—allowing for a more holistic evaluation of classification quality.
+
+
+\section{F1-Score}
+
+The \textit{F1-score} is a widely used metric that combines \textit{precision} and \textit{recall} into a single measure of a model’s effectiveness. 
+It is particularly valuable when dealing with imbalanced datasets, where accuracy alone can be misleading, and when both false positives and false negatives carry significant consequences.
+
+\vspace{0.5em}
+Precision measures how many of the predicted positive instances are truly positive, while recall measures how many of the actual positive instances were correctly identified. 
+Since these two metrics often trade off against each other, the F1-score provides a balanced summary by computing their harmonic mean:
+\[
+F_1 = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}.
+\]
+This formulation ensures that a high F1-score can only be achieved when both precision and recall are reasonably high.  
+If either precision or recall is low, the F1-score will also decrease sharply, making it more sensitive to performance imbalances than a simple arithmetic mean.
+
+\vspace{0.5em}
+The F1-score ranges between 0 and 1, where 1 indicates perfect precision and recall, and 0 indicates the worst possible performance.  
+It is especially useful when the cost of false positives and false negatives is roughly equal, or when the dataset exhibits skewed class distributions.
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{img/f1_score.png}
+    \caption{F1 score graph with threshold}
+    \label{fig:placeholder}
+\end{figure}
+
+\vspace{0.5em}
+In a binary classification context, a single F1-score value summarizes model performance. 
+However, for multi-class problems, it can be generalized using different averaging strategies:
+\begin{itemize}
+    \item \textbf{Macro F1-score:} Computes the F1-score independently for each class and then takes the unweighted mean.  
+    It treats all classes equally, regardless of their frequency.
+    \item \textbf{Micro F1-score:} Aggregates all true positives, false positives, and false negatives across classes before computing the F1-score.  
+    It gives more weight to frequent classes.
+    \item \textbf{Weighted F1-score:} Computes the class-specific F1-scores and averages them proportionally to the number of true instances in each class.  
+    This approach balances performance evaluation according to class importance.
+\end{itemize}
+
+\vspace{0.5em}
+The \textit{F1-score curve} can also be plotted against varying classification thresholds to visualize the trade-off between precision and recall. 
+By adjusting the decision threshold, practitioners can tune the balance between sensitivity (recall) and specificity (precision) to best fit the requirements of a specific application—such as maximizing recall in medical diagnosis or maximizing precision in spam detection.
+
+\vspace{0.5em}
+In summary, the F1-score provides a robust and interpretable single-number metric for evaluating classification performance, especially in the presence of imbalanced data. 
+It captures the delicate equilibrium between precision and recall, offering a more truthful representation of model effectiveness than accuracy alone. 
+For this reason, it is a standard metric in research benchmarks and real-world machine learning evaluations alike.
+
+
+\chapter{Implementation \&\ Code Patterns}
+
+\chapter{Advanced Topics}
+
+\end{document}
