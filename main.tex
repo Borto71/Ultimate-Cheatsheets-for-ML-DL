@@ -2918,6 +2918,75 @@ Implementation patterns distinguish research scripts from production-grade libra
 
 
 \section{Model Definition in PyTorch (Modules, Forward Pass, Parameters)}
+
+In PyTorch, the fundamental building block for all neural network components is the \texttt{nn.Module} class. Whether defining a single layer, a complex block (like a Residual Block), or an entire architecture (like ResNet), the design pattern remains consistent: state is defined in the initialization, and computation is defined in the forward pass.
+
+This object-oriented approach leverages PyTorch's dynamic computational graph (define-by-run), allowing for flexible architectures where control flow (loops, conditions) can be used directly within the model definition.
+
+\subsection{The \texttt{nn.Module} Anatomy}
+A custom model typically inherits from \texttt{torch.nn.Module} and overrides two essential methods:
+
+\begin{itemize}
+    \item \texttt{\_\_init\_\_(self)}: The constructor. This is where the model's \textbf{state} is initialized. You define the layers (submodules) and parameters here. PyTorch automatically registers these attributes to track gradients and handle device movement (CPU/GPU).
+    \item \texttt{forward(self, x)}: The computation logic. This method defines how the input tensor $x$ flows through the initialized layers to produce an output. It is called automatically when the model instance is called (i.e., \texttt{model(x)}), effectively constructing the dynamic graph.
+\end{itemize}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{img/pytorch_module_diagram.png}
+    \caption{The \texttt{nn.Module} lifecycle: State registration in \texttt{\_\_init\_\_} and Graph construction in \texttt{forward}.}
+    \label{fig:pytorch_module}
+\end{figure}
+
+\subsection{Parameters and Buffers}
+PyTorch distinguishes between two types of state variables stored within a module:
+
+\begin{enumerate}
+    \item \textbf{Parameters (\texttt{nn.Parameter}):} Learnable tensors (weights and biases) that require gradients. They are automatically added to the list returned by \texttt{model.parameters()}, which is passed to the optimizer.
+    \item \textbf{Buffers (\texttt{register\_buffer}):} Tensors that are part of the model's state but are \textbf{not} trained via gradient descent. Common examples include the running mean and variance in Batch Normalization layers or causal masks in Transformers. They persist in the \texttt{state\_dict} but do not require gradients.
+\end{enumerate}
+
+\subsection{Example: A Simple MLP Block}
+Below is a canonical implementation of a Multilayer Perceptron (MLP) classification block.
+
+\begin{verbatim}
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+class SimpleMLP(nn.Module):
+    def __init__(self, input_dim, hidden_dim, num_classes):
+        super(SimpleMLP, self).__init__()
+        # 1. Define Submodules (State)
+        self.fc1 = nn.Linear(input_dim, hidden_dim)
+        self.bn1 = nn.BatchNorm1d(hidden_dim)
+        self.dropout = nn.Dropout(p=0.5)
+        self.fc2 = nn.Linear(hidden_dim, num_classes)
+        
+        # 2. Initialize Weights (Optional explicit initialization)
+        nn.init.kaiming_normal_(self.fc1.weight)
+
+    def forward(self, x):
+        # 3. Define Computation Graph
+        # x shape: (Batch_Size, Input_Dim)
+        x = self.fc1(x)
+        x = self.bn1(x)
+        x = F.relu(x)  # Functional API for stateless ops
+        x = self.dropout(x)
+        logits = self.fc2(x)
+        return logits
+\end{verbatim}
+
+\subsection{The Functional API vs. Module API}
+PyTorch provides two ways to apply operations:
+\begin{itemize}
+    \item \textbf{Module API (\texttt{torch.nn}):} Stateful layers (e.g., \texttt{nn.Linear}, \texttt{nn.Conv2d}). These store weights and must be defined in \texttt{\_\_init\_\_}.
+    \item \textbf{Functional API (\texttt{torch.nn.functional}):} Stateless operations (e.g., \texttt{F.relu}, \texttt{F.softmax}). These are purely mathematical functions applied directly in \texttt{forward}.
+\end{itemize}
+\textit{Best Practice:} Use \texttt{nn.Module} for anything with learnable weights; use functional calls for simple activation functions or operations without parameters (like pooling) to keep \texttt{\_\_init\_\_} clean.
+
+\subsection{Summary}
+The \texttt{nn.Module} abstraction is central to PyTorch's flexibility. By decoupling parameter storage (in \texttt{\_\_init\_\_}) from graph execution (in \texttt{forward}), it enables the creation of complex, dynamic architectures that are easy to debug and extend. Understanding how parameters and buffers are registered is crucial for managing model saving, loading, and optimization correctly.
 \section{Training Loops and Evaluation Pipelines}
 \section{Saving, Loading, and Deployment of Models}
 \section{Performance Profiling and Debugging}
