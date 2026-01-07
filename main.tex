@@ -2987,7 +2987,92 @@ PyTorch provides two ways to apply operations:
 
 \subsection{Summary}
 The \texttt{nn.Module} abstraction is central to PyTorch's flexibility. By decoupling parameter storage (in \texttt{\_\_init\_\_}) from graph execution (in \texttt{forward}), it enables the creation of complex, dynamic architectures that are easy to debug and extend. Understanding how parameters and buffers are registered is crucial for managing model saving, loading, and optimization correctly.
+
 \section{Training Loops and Evaluation Pipelines}
+
+The training loop is the engine of any deep learning application. It is the iterative process where the model processes data, computes errors, and updates its parameters to minimize the loss function. While frameworks like PyTorch Lightning or Hugging Face Trainer abstract this complexity, understanding the raw loop is essential for debugging and implementing custom training logic.
+
+A robust pipeline consists of two distinct phases executed at every epoch: a \textbf{training phase} to optimize weights, and a \textbf{validation phase} to measure generalization performance.
+
+\subsection{The Standard Training Loop}
+The training loop iterates over the dataset in batches. For each batch, the following sequence of operations must occur, typically in this exact order:
+
+\begin{enumerate}
+    \item \textbf{Data Preparation:} Fetch a batch of inputs ($x$) and targets ($y$) from the \texttt{DataLoader} and move them to the target device (GPU/TPU).
+    \item \textbf{Forward Pass:} Pass inputs through the model to get predictions ($\hat{y}$).
+    \item \textbf{Loss Computation:} Calculate the discrepancy between $\hat{y}$ and $y$ using the loss function.
+    \item \textbf{Backward Pass:} Compute gradients via backpropagation (\texttt{loss.backward()}).
+    \item \textbf{Parameter Update:} Adjust weights using the optimizer (\texttt{optimizer.step()}).
+    \item \textbf{Gradient Reset:} Clear the gradients for the next iteration (\texttt{optimizer.zero\_grad()}).
+\end{enumerate}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/training_loop_flowchart.jpg}
+    \caption{Flowchart of a standard Training Loop and Evaluation Pipeline.}
+    \label{fig:training_loop}
+\end{figure}
+
+\subsection{The Evaluation Pipeline}
+The evaluation (or validation) pipeline is similar to training but differs in two critical aspects:
+
+\begin{itemize}
+    \item \textbf{No Gradient Computation:} Gradients are unnecessary for inference. Wrapping code in a \texttt{torch.no\_grad()} context manager disables the autograd engine, reducing memory usage and speeding up computation.
+    \item \textbf{Model Mode (\texttt{model.eval()}):} Certain layers behave differently during training and inference. For example, \textbf{Dropout} is disabled during evaluation, and \textbf{Batch Normalization} uses running statistics instead of batch statistics. Failing to switch modes leads to incorrect metric calculation.
+\end{itemize}
+
+\subsection{Implementation Example}
+Below is a standard PyTorch implementation covering both phases.
+
+\begin{verbatim}
+def train_one_epoch(model, loader, criterion, optimizer, device):
+    model.train()  # 1. Set Train Mode
+    running_loss = 0.0
+    
+    for inputs, targets in loader:
+        inputs, targets = inputs.to(device), targets.to(device)
+        
+        # 2. Optimization Steps
+        optimizer.zero_grad()           # Clear gradients
+        outputs = model(inputs)         # Forward
+        loss = criterion(outputs, targets) # Compute Loss
+        loss.backward()                 # Backward
+        optimizer.step()                # Update
+        
+        running_loss += loss.item() * inputs.size(0)
+        
+    return running_loss / len(loader.dataset)
+
+def evaluate(model, loader, criterion, device):
+    model.eval()   # 1. Set Eval Mode
+    running_loss = 0.0
+    correct = 0
+    
+    # 2. Disable Gradient Calculation
+    with torch.no_grad():
+        for inputs, targets in loader:
+            inputs, targets = inputs.to(device), targets.to(device)
+            outputs = model(inputs)
+            loss = criterion(outputs, targets)
+            
+            running_loss += loss.item() * inputs.size(0)
+            preds = outputs.argmax(dim=1)
+            correct += (preds == targets).sum().item()
+            
+    accuracy = correct / len(loader.dataset)
+    return running_loss / len(loader.dataset), accuracy
+\end{verbatim}
+
+\subsection{Best Practices}
+\begin{itemize}
+    \item \textbf{Gradient Zeroing Location:} Use \texttt{zero\_grad(set\_to\_none=True)} for a slight performance boost (avoids writing zeros to memory).
+    \item \textbf{Metric Accumulation:} Avoid storing tensors (e.g., list of predictions) on the GPU during the loop; move them to CPU or convert to numpy to prevent OOM (Out Of Memory) errors.
+    \item \textbf{Progress Tracking:} Wrap loaders with \texttt{tqdm} for real-time progress bars and log metrics to tools like TensorBoard or Weights \& Biases.
+\end{itemize}
+
+\subsection{Summary}
+The training loop translates mathematical optimization into code. While conceptually simple, it requires strict discipline regarding mode switching (\texttt{.train()} vs \texttt{.eval()}) and gradient management (\texttt{no\_grad()}) to ensure that the model learns correctly and is evaluated fairly on unseen data.
+
 \section{Saving, Loading, and Deployment of Models}
 \section{Performance Profiling and Debugging}
 
