@@ -3074,6 +3074,76 @@ def evaluate(model, loader, criterion, device):
 The training loop translates mathematical optimization into code. While conceptually simple, it requires strict discipline regarding mode switching (\texttt{.train()} vs \texttt{.eval()}) and gradient management (\texttt{no\_grad()}) to ensure that the model learns correctly and is evaluated fairly on unseen data.
 
 \section{Saving, Loading, and Deployment of Models}
+
+Training a deep learning model is computationally expensive and time-consuming. Therefore, saving the learned weights securely and efficiently is a critical part of the machine learning lifecycle. Whether the goal is to pause and resume training, share the model with collaborators, or deploy it into a production environment, PyTorch provides straightforward mechanisms for serialization.
+
+\subsection{Understanding the \texttt{state\_dict}}
+In PyTorch, the recommended way to save and load models revolves around the \texttt{state\_dict}. A \texttt{state\_dict} is simply a Python dictionary object that maps each layer to its parameter tensor (weights and biases) and buffer tensors. 
+
+
+
+It is important to note that only layers with learnable parameters (e.g., convolutional layers, linear layers) and registered buffers (e.g., batch normalization running statistics) have entries in the \texttt{state\_dict}.
+
+\subsection{Saving and Loading for Inference}
+When saving a model purely for inference (making predictions), you only need to save the trained weights. It is highly recommended to save the \texttt{state\_dict} rather than the entire model class object. Saving the entire model pickles the specific directory structure and class definitions, which can easily break if the code is refactored.
+
+\begin{verbatim}
+# --- SAVING ---
+# Best Practice: Save only the state_dict
+torch.save(model.state_dict(), 'model_weights.pth')
+
+# --- LOADING ---
+# 1. Instantiate the model architecture first
+model = SimpleMLP(input_dim=784, hidden_dim=128, num_classes=10)
+
+# 2. Load the state_dict into the model
+model.load_state_dict(torch.load('model_weights.pth'))
+
+# 3. Set the model to evaluation mode
+model.eval()
+\end{verbatim}
+
+\textit{Note:} Always call \texttt{model.eval()} after loading to ensure layers like Dropout and Batch Normalization are set to inference mode.
+
+\subsection{Checkpointing: Saving for Resuming Training}
+If your goal is to pause training and resume it later, saving just the model weights is insufficient. You must also save the optimizer's state (which contains buffers and momentum for algorithms like Adam), the current epoch, and the latest loss to ensure a seamless continuation.
+
+\begin{verbatim}
+# --- SAVING A CHECKPOINT ---
+checkpoint = {
+    'epoch': epoch,
+    'model_state_dict': model.state_dict(),
+    'optimizer_state_dict': optimizer.state_dict(),
+    'loss': loss,
+}
+torch.save(checkpoint, 'checkpoint_epoch_10.pth')
+
+# --- LOADING A CHECKPOINT ---
+model = SimpleMLP(input_dim=784, hidden_dim=128, num_classes=10)
+optimizer = optim.Adam(model.parameters(), lr=0.001)
+
+checkpoint = torch.load('checkpoint_epoch_10.pth')
+model.load_state_dict(checkpoint['model_state_dict'])
+optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+epoch = checkpoint['epoch']
+loss = checkpoint['loss']
+
+model.train() # Set back to training mode
+\end{verbatim}
+
+\subsection{Deployment and Exporting (TorchScript and ONNX)}
+Standard PyTorch models require a Python runtime. However, production environments (like edge devices, mobile phones, or high-performance C++ servers) often lack Python. PyTorch offers two main pathways for deployment:
+
+
+
+\begin{enumerate}
+    \item \textbf{TorchScript:} PyTorch's way to create serializable and optimizable models. By using \texttt{torch.jit.trace} or \texttt{torch.jit.script}, you can compile your Python model into a statically typed graph that can be run in a C++ environment using \texttt{LibTorch}.
+    \item \textbf{ONNX (Open Neural Network Exchange):} An open format built to represent machine learning models. Using \texttt{torch.onnx.export}, you can export your PyTorch model to the ONNX format, which can then be optimized and run on various hardware accelerators (e.g., TensorRT for NVIDIA GPUs, OpenVINO for Intel hardware) or in different frameworks.
+\end{enumerate}
+
+\subsection{Summary}
+Model serialization in PyTorch is largely handled via Python's pickling mechanism applied to dictionaries (\texttt{state\_dict}). Sticking to the \texttt{state\_dict} method ensures code portability. For long training runs, robust checkpointing of both the model and the optimizer is non-negotiable. Finally, bridging the gap from research to production is facilitated by tools like TorchScript and ONNX, which decouple the model from the Python runtime.
+
 \section{Performance Profiling and Debugging}
 
 \chapter{Metrics \&\ how to read it}
